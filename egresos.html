@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Egresos - Bob Subastas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+    <!-- Contenedor principal -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Menu lateral -->
+        <nav id="sidebar" class="w-64 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out">
+            <!-- Header del menu -->
+            <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
+                <h2 class="text-xl font-bold">Menu</h2>
+                <button id="close-menu">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Items del menu -->
+            <ul class="p-2">
+                <li class="mb-1">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:tegray-600">
+                        <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
+                        <span>Resumen</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                        <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
+                        <span>Clientes</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                        <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
+                        <span>Ingresos</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                        <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
+                        <span>Egresos</span>
+                    </a>
+                </li>
+                <li class="mb-1">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                        <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
+                        <span>Balance</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+        <!-- Contenido principal -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- App bar con boton hamburguesa -->
+            <header class="bg-white shadow-sm p-4 flex items-center justify-between">
+                <div class="flex items-center">
+                    <button id="menu-btn" class="mr-4">
+                        <i class="fa-solid fa-bars fa-xl"></i>
+                    </button>
+                    <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
+                </div>
+                <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
+            </header>
+
+            <!-- Cuerpo de la app -->
+            <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h2 class="text-2xl font-bold mb-4">Bienvenido a Bob Subastas</h2>
+                        <p class="text-gray-600">Aquí puedes ver el resumen de tus actividades recientes.</p>
+                        
+                        <!-- Ejemplo de sección de contenido -->
+                        <div class="mt-8 grid grid-cols-1 gap-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-blue-800">Clientes registrados</h3>
+                                <p class="text-2xl font-bold mt-2">123</p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-green-800">Ingresos</h3>
+                                <p class="text-2xl font-bold mt-2">$12,000</p>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <h3 class="font-semibold text-yellow-800">Egresos</h3>
+                                <p class="text-2xl font-bold mt-2">$12,000</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
