@@ -8,97 +8,354 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
-    <!-- Contenedor principal -->
-    <div class="flex h-screen overflow-hidden">
-        <!-- Menu lateral -->
-        <nav id="sidebar" class="w-64 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out">
-            <!-- Header del menu -->
-            <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
-                <h2 class="text-xl font-bold">Menu</h2>
-                <button id="close-menu">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Items del menu -->
+    <!-- Menu lateral -->
+    <aside id="sidebar"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        aria-label="Menú principal">
+        <!-- Header del menu -->
+        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
+            <h2 class="text-xl font-bold">Menu</h2>
+            <button id="close-menu" class="focus:outline-none">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </header>
+        <!-- Items del menu -->
+        <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:tegray-600">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
                 </li>
             </ul>
         </nav>
+    </aside>
 
-        <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
-        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>
 
-        <!-- Contenido principal -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- App bar con boton hamburguesa -->
-            <header class="bg-white shadow-sm p-4 flex items-center justify-between">
-                <div class="flex items-center">
-                    <button id="menu-btn" class="mr-4">
-                        <i class="fa-solid fa-bars fa-xl"></i>
-                    </button>
-                    <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
-                </div>
-                <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
-            </header>
+    <!-- Contenido principal -->
+    <header class="bg-white shadow-sm p-4 flex items-center justify-between" role="banner">
+        <div class="flex items-center">
+            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded"
+                aria-label="Abrir menú" tabindex="0">
+                <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
+            </button>
+            <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
+        </div>
+        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
+    </header>
 
-            <!-- Cuerpo de la app -->
-            <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
-                <div class="max-w-4xl mx-auto">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h2 class="text-2xl font-bold mb-4">Bienvenido a Bob Subastas</h2>
-                        <p class="text-gray-600">Aquí puedes ver el resumen de tus actividades recientes.</p>
-                        
-                        <!-- Ejemplo de sección de contenido -->
-                        <div class="mt-8 grid grid-cols-1 gap-4">
-                            <div class="bg-blue-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-blue-800">Clientes registrados</h3>
-                                <p class="text-2xl font-bold mt-2">123</p>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-green-800">Ingresos</h3>
-                                <p class="text-2xl font-bold mt-2">$12,000</p>
-                            </div>
-                            <div class="bg-yellow-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-yellow-800">Egresos</h3>
-                                <p class="text-2xl font-bold mt-2">$12,000</p>
-                            </div>
-                        </div>
+    <!-- Cuerpo de la app -->
+    <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
+        <div class="max-w-5xl mx-auto">
+            <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                        <h2 class="text-2xl font-bold text-[#2c9494]">Gestión de Ingresos</h2>
+                        <button id="nuevo-ingreso-btn" class="bg-[#2c9494] hover:bg-[#f3ab13] text-white px-4 py-2 rounded-lg flex items-center focus:outline-none">
+                            <i class="fa-solid fa-plus mr-2"></i> Nuevo Ingreso
+                        </button>
+                    </div>
+                    <!-- Filtros -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
+                        <input id="filtro-fecha" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Fecha">
+                        <select id="filtro-cliente" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los clientes</option>
+                        </select>
+                        <select id="filtro-medio" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los medios</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Depósito">Depósito</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                        <select id="filtro-banco" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los bancos</option>
+                            <option>BCP</option>
+                            <option>Interbank</option>
+                            <option>BBVA</option>
+                            <option>Scotiabank</option>
+                        </select>
+                        <select id="filtro-moneda" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todas las monedas</option>
+                            <option>PEN</option>
+                            <option>USD</option>
+                        </select>
+                    </div>
+                    <!-- Tabla de ingresos -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hora</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Medio</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Banco</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Moneda</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Importe</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Concepto</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ingresos-tbody" class="bg-white divide-y divide-gray-200"></tbody>
+                        </table>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+            <!-- Modal de nuevo ingreso -->
+            <div id="ingreso-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" role="dialog" aria-modal="true">
+                <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+                    <button id="close-ingreso-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                    <h2 class="text-xl font-semibold mb-4" id="modal-ingreso-title">Nuevo Ingreso</h2>
+                    <form id="ingreso-form" class="space-y-4">
+                        <input type="hidden" id="ingreso-id">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="ingreso-fecha" class="block text-sm font-medium">Fecha</label>
+                                <input id="ingreso-fecha" name="fecha" type="date" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                            <div>
+                                <label for="ingreso-hora" class="block text-sm font-medium">Hora</label>
+                                <input id="ingreso-hora" name="hora" type="time" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="ingreso-cliente" class="block text-sm font-medium">Cliente</label>
+                            <select id="ingreso-cliente" name="cliente" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <option value="">Seleccione un cliente</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="ingreso-medio" class="block text-sm font-medium">Medio</label>
+                                <select id="ingreso-medio" name="medio" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option value="Transferencia">Transferencia</option>
+                                    <option value="Depósito">Depósito</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="ingreso-banco" class="block text-sm font-medium">Banco</label>
+                                <select id="ingreso-banco" name="banco" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option>BCP</option>
+                                    <option>Interbank</option>
+                                    <option>BBVA</option>
+                                    <option>Scotiabank</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="ingreso-moneda" class="block text-sm font-medium">Moneda</label>
+                                <select id="ingreso-moneda" name="moneda" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option>PEN</option>
+                                    <option>USD</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="ingreso-importe" class="block text-sm font-medium">Importe</label>
+                                <input id="ingreso-importe" name="importe" type="number" min="0" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="ingreso-concepto" class="block text-sm font-medium">Concepto</label>
+                            <input id="ingreso-concepto" name="concepto" type="text" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                        </div>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" class="bg-[#2c9494] text-white px-5 py-2 rounded hover:bg-[#237878] transition">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <script src="./script.js"></script>
+    <script>
+        // --- CLIENTES DEMO (igual que clientes.html) ---
+        const clientes = [
+            {id: 1, nombre: "Javier Ramirez"},
+            {id: 2, nombre: "Carlos Vega"},
+            {id: 3, nombre: "Empresa XYZ SAC"},
+            {id: 4, nombre: "Lucía Fernández"},
+            {id: 5, nombre: "Transportes Lima S.A."},
+            {id: 6, nombre: "Pedro Castillo"}
+        ];
+        // --- INGRESOS DEMO ---
+        let ingresos = [
+            {id: 1, fecha: "2025-04-18", hora: "10:30", cliente: 1, medio: "Transferencia", banco: "BCP", moneda: "PEN", importe: 1500, concepto: "Garantía subasta"},
+            {id: 2, fecha: "2025-04-18", hora: "11:15", cliente: 3, medio: "Depósito", banco: "Interbank", moneda: "USD", importe: 800, concepto: "Adelanto compra"},
+            {id: 3, fecha: "2025-04-17", hora: "16:00", cliente: 2, medio: "Efectivo", banco: "BBVA", moneda: "PEN", importe: 950, concepto: "Garantía subasta"}
+        ];
+        function getClienteNombre(id) {
+            const c = clientes.find(x => x.id == id);
+            return c ? c.nombre : "";
+        }
+        function renderIngresos() {
+            const tbody = document.getElementById("ingresos-tbody");
+            tbody.innerHTML = "";
+            ingresos.filter(filtrarIngreso).forEach(ingreso => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.fecha}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.hora}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${getClienteNombre(ingreso.cliente)}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.medio}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.banco}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.moneda}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.moneda} ${Number(ingreso.importe).toLocaleString()}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${ingreso.concepto}</td>
+                        <td class='px-4 py-2 whitespace-nowrap text-right'>
+                            <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2' aria-label='Editar ingreso' onclick='editarIngreso(${ingreso.id})'><i class='fa-solid fa-pen'></i></button>
+                            <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar ingreso' onclick='eliminarIngreso(${ingreso.id})'><i class='fa-solid fa-trash'></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+        function filtrarIngreso(ingreso) {
+            const fecha = document.getElementById("filtro-fecha").value;
+            const cliente = document.getElementById("filtro-cliente").value;
+            const medio = document.getElementById("filtro-medio").value;
+            const banco = document.getElementById("filtro-banco").value;
+            const moneda = document.getElementById("filtro-moneda").value;
+            return (!fecha || ingreso.fecha === fecha) &&
+                   (!cliente || ingreso.cliente == cliente) &&
+                   (!medio || ingreso.medio === medio) &&
+                   (!banco || ingreso.banco === banco) &&
+                   (!moneda || ingreso.moneda === moneda);
+        }
+        function resetIngresoForm() {
+            document.getElementById("ingreso-form").reset();
+            document.getElementById("ingreso-id").value = "";
+            document.getElementById("modal-ingreso-title").textContent = "Nuevo Ingreso";
+        }
+        function openIngresoModal() {
+            document.getElementById("ingreso-modal").classList.remove("hidden");
+        }
+        function closeIngresoModal() {
+            document.getElementById("ingreso-modal").classList.add("hidden");
+            resetIngresoForm();
+        }
+        document.getElementById("nuevo-ingreso-btn").onclick = () => {
+            resetIngresoForm();
+            openIngresoModal();
+        };
+        document.getElementById("close-ingreso-modal").onclick = closeIngresoModal;
+        document.getElementById("ingreso-form").onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById("ingreso-id").value;
+            const fecha = document.getElementById("ingreso-fecha").value;
+            const hora = document.getElementById("ingreso-hora").value;
+            const cliente = parseInt(document.getElementById("ingreso-cliente").value);
+            const medio = document.getElementById("ingreso-medio").value;
+            const banco = document.getElementById("ingreso-banco").value;
+            const moneda = document.getElementById("ingreso-moneda").value;
+            const importe = parseFloat(document.getElementById("ingreso-importe").value);
+            const concepto = document.getElementById("ingreso-concepto").value;
+            if (id) {
+                // Editar
+                const ix = ingresos.findIndex(i => i.id == id);
+                if (ix >= 0) {
+                    ingresos[ix] = {id: ingresos[ix].id, fecha, hora, cliente, medio, banco, moneda, importe, concepto};
+                }
+            } else {
+                // Nuevo
+                ingresos.push({
+                    id: ingresos.length ? Math.max(...ingresos.map(i => i.id)) + 1 : 1,
+                    fecha, hora, cliente, medio, banco, moneda, importe, concepto
+                });
+            }
+            renderIngresos();
+            closeIngresoModal();
+        };
+        window.editarIngreso = function(id) {
+            const i = ingresos.find(x => x.id == id);
+            if (!i) return;
+            document.getElementById("ingreso-id").value = i.id;
+            document.getElementById("ingreso-fecha").value = i.fecha;
+            document.getElementById("ingreso-hora").value = i.hora;
+            document.getElementById("ingreso-cliente").value = i.cliente;
+            document.getElementById("ingreso-medio").value = i.medio;
+            document.getElementById("ingreso-banco").value = i.banco;
+            document.getElementById("ingreso-moneda").value = i.moneda;
+            document.getElementById("ingreso-importe").value = i.importe;
+            document.getElementById("ingreso-concepto").value = i.concepto;
+            document.getElementById("modal-ingreso-title").textContent = "Editar Ingreso";
+            openIngresoModal();
+        };
+        window.eliminarIngreso = function(id) {
+            if (confirm("¿Seguro que deseas eliminar este ingreso?")) {
+                ingresos = ingresos.filter(i => i.id != id);
+                renderIngresos();
+            }
+        };
+        // Filtros
+        ["filtro-fecha","filtro-cliente","filtro-medio","filtro-banco","filtro-moneda"].forEach(id => {
+            document.getElementById(id).addEventListener("change", renderIngresos);
+        });
+        // Poblar selects de clientes
+        function poblarClientesSelect() {
+            const select = document.getElementById("ingreso-cliente");
+            const filtro = document.getElementById("filtro-cliente");
+            select.innerHTML = '<option value="">Seleccione un cliente</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
+            filtro.innerHTML = '<option value="">Todos los clientes</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            poblarClientesSelect();
+            renderIngresos();
+        });
+        
+        // Funcionalidad para el menú móvil
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuBtn = document.getElementById('menu-btn');
+            const closeBtn = document.getElementById('close-menu');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            // Abrir menú
+            if (menuBtn) menuBtn.addEventListener('click', function () {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            });
+            // Cerrar menú
+            function closeMenu() {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            // Cerrar menú en pantallas grandes cuando se redimensiona
+            window.addEventListener('resize', function () {
+                if (window.innerWidth >= 1024) {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -8,97 +8,351 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
-    <!-- Contenedor principal -->
-    <div class="flex h-screen overflow-hidden">
-        <!-- Menu lateral -->
-        <nav id="sidebar" class="w-64 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out">
-            <!-- Header del menu -->
-            <div class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
-                <h2 class="text-xl font-bold">Menu</h2>
-                <button id="close-menu">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-            </div>
-
-            <!-- Items del menu -->
+    <!-- Menu lateral -->
+    <aside id="sidebar"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        aria-label="Menú principal">
+        <!-- Header del menu -->
+        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
+            <h2 class="text-xl font-bold">Menu</h2>
+            <button id="close-menu" class="focus:outline-none">
+                <i class="fa-solid fa-times"></i>
+            </button>
+        </header>
+        <!-- Items del menu -->
+        <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:tegray-600">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:text-gray-600">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
                 </li>
             </ul>
         </nav>
+    </aside>
 
-        <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
-        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>
 
-        <!-- Contenido principal -->
-        <div class="flex-1 flex flex-col overflow-hidden">
-            <!-- App bar con boton hamburguesa -->
-            <header class="bg-white shadow-sm p-4 flex items-center justify-between">
-                <div class="flex items-center">
-                    <button id="menu-btn" class="mr-4">
-                        <i class="fa-solid fa-bars fa-xl"></i>
-                    </button>
-                    <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
-                </div>
-                <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
-            </header>
+    <!-- Contenido principal -->
+    <header class="bg-white shadow-sm p-4 flex items-center justify-between" role="banner">
+        <div class="flex items-center">
+            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded"
+                aria-label="Abrir menú" tabindex="0">
+                <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
+            </button>
+            <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
+        </div>
+        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
+    </header>
 
-            <!-- Cuerpo de la app -->
-            <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
-                <div class="max-w-4xl mx-auto">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h2 class="text-2xl font-bold mb-4">Bienvenido a Bob Subastas</h2>
-                        <p class="text-gray-600">Aquí puedes ver el resumen de tus actividades recientes.</p>
-                        
-                        <!-- Ejemplo de sección de contenido -->
-                        <div class="mt-8 grid grid-cols-1 gap-4">
-                            <div class="bg-blue-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-blue-800">Clientes registrados</h3>
-                                <p class="text-2xl font-bold mt-2">123</p>
-                            </div>
-                            <div class="bg-green-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-green-800">Ingresos</h3>
-                                <p class="text-2xl font-bold mt-2">$12,000</p>
-                            </div>
-                            <div class="bg-yellow-50 p-4 rounded-lg">
-                                <h3 class="font-semibold text-yellow-800">Egresos</h3>
-                                <p class="text-2xl font-bold mt-2">$12,000</p>
-                            </div>
-                        </div>
+        <!-- Cuerpo de la app -->
+        <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="bg-white rounded-lg shadow p-6 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                        <h2 class="text-2xl font-bold text-[#2c9494]">Gestión de Egresos</h2>
+                        <button id="nuevo-egreso-btn" class="bg-[#2c9494] hover:bg-[#f3ab13] text-white px-4 py-2 rounded-lg flex items-center focus:outline-none">
+                            <i class="fa-solid fa-plus mr-2"></i> Nuevo Egreso
+                        </button>
+                    </div>
+                    <!-- Filtros -->
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
+                        <input id="filtro-fecha" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Fecha">
+                        <select id="filtro-cliente" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los clientes</option>
+                        </select>
+                        <select id="filtro-medio" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los medios</option>
+                            <option value="Transferencia">Transferencia</option>
+                            <option value="Depósito">Depósito</option>
+                            <option value="Efectivo">Efectivo</option>
+                        </select>
+                        <select id="filtro-banco" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todos los bancos</option>
+                            <option>BCP</option>
+                            <option>Interbank</option>
+                            <option>BBVA</option>
+                            <option>Scotiabank</option>
+                        </select>
+                        <select id="filtro-moneda" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                            <option value="">Todas las monedas</option>
+                            <option>PEN</option>
+                            <option>USD</option>
+                        </select>
+                    </div>
+                    <!-- Tabla de egresos -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Hora</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Cliente</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Medio</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Banco</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Moneda</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Importe</th>
+                                    <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Concepto</th>
+                                    <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="egresos-tbody" class="bg-white divide-y divide-gray-200"></tbody>
+                        </table>
                     </div>
                 </div>
-            </main>
-        </div>
+            </div>
+            <!-- Modal de nuevo egreso -->
+            <div id="egreso-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" role="dialog" aria-modal="true">
+                <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
+                    <button id="close-egreso-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
+                        <i class="fa-solid fa-times"></i>
+                    </button>
+                    <h2 class="text-xl font-semibold mb-4" id="modal-egreso-title">Nuevo Egreso</h2>
+                    <form id="egreso-form" class="space-y-4">
+                        <input type="hidden" id="egreso-id">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="egreso-fecha" class="block text-sm font-medium">Fecha</label>
+                                <input id="egreso-fecha" name="fecha" type="date" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                            <div>
+                                <label for="egreso-hora" class="block text-sm font-medium">Hora</label>
+                                <input id="egreso-hora" name="hora" type="time" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="egreso-cliente" class="block text-sm font-medium">Cliente</label>
+                            <select id="egreso-cliente" name="cliente" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <option value="">Seleccione un cliente</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="egreso-medio" class="block text-sm font-medium">Medio</label>
+                                <select id="egreso-medio" name="medio" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option value="Transferencia">Transferencia</option>
+                                    <option value="Depósito">Depósito</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="egreso-banco" class="block text-sm font-medium">Banco</label>
+                                <select id="egreso-banco" name="banco" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option>BCP</option>
+                                    <option>Interbank</option>
+                                    <option>BBVA</option>
+                                    <option>Scotiabank</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="egreso-moneda" class="block text-sm font-medium">Moneda</label>
+                                <select id="egreso-moneda" name="moneda" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                    <option>PEN</option>
+                                    <option>USD</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="egreso-importe" class="block text-sm font-medium">Importe</label>
+                                <input id="egreso-importe" name="importe" type="number" min="0" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="egreso-concepto" class="block text-sm font-medium">Concepto</label>
+                            <input id="egreso-concepto" name="concepto" type="text" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                        </div>
+                        <div class="flex justify-end mt-4">
+                            <button type="submit" class="bg-[#2c9494] text-white px-5 py-2 rounded hover:bg-[#237878] transition">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <script src="./script.js"></script>
+    <script>
+        // --- CLIENTES DEMO (igual que clientes.html) ---
+        const clientes = [
+            {id: 1, nombre: "Javier Ramirez"},
+            {id: 2, nombre: "Carlos Vega"},
+            {id: 3, nombre: "Empresa XYZ SAC"},
+            {id: 4, nombre: "Lucía Fernández"},
+            {id: 5, nombre: "Transportes Lima S.A."},
+            {id: 6, nombre: "Pedro Castillo"}
+        ];
+        // --- EGRESOS DEMO ---
+        let egresos = [
+            {id: 1, fecha: "2025-04-18", hora: "13:00", cliente: 1, medio: "Transferencia", banco: "BCP", moneda: "PEN", importe: 500, concepto: "Devolución garantía"},
+            {id: 2, fecha: "2025-04-18", hora: "15:20", cliente: 4, medio: "Depósito", banco: "Interbank", moneda: "USD", importe: 300, concepto: "Reembolso parcial"},
+            {id: 3, fecha: "2025-04-17", hora: "18:00", cliente: 2, medio: "Efectivo", banco: "BBVA", moneda: "PEN", importe: 250, concepto: "Devolución garantía"}
+        ];
+        function getClienteNombre(id) {
+            const c = clientes.find(x => x.id == id);
+            return c ? c.nombre : "";
+        }
+        function renderEgresos() {
+            const tbody = document.getElementById("egresos-tbody");
+            tbody.innerHTML = "";
+            egresos.filter(filtrarEgreso).forEach(egreso => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.fecha}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.hora}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${getClienteNombre(egreso.cliente)}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.medio}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.banco}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.moneda}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.moneda} ${Number(egreso.importe).toLocaleString()}</td>
+                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.concepto}</td>
+                        <td class='px-4 py-2 whitespace-nowrap text-right'>
+                            <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2' aria-label='Editar egreso' onclick='editarEgreso(${egreso.id})'><i class='fa-solid fa-pen'></i></button>
+                            <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar egreso' onclick='eliminarEgreso(${egreso.id})'><i class='fa-solid fa-trash'></i></button>
+                        </td>
+                    </tr>`;
+            });
+        }
+        function filtrarEgreso(egreso) {
+            const fecha = document.getElementById("filtro-fecha").value;
+            const cliente = document.getElementById("filtro-cliente").value;
+            const medio = document.getElementById("filtro-medio").value;
+            const banco = document.getElementById("filtro-banco").value;
+            const moneda = document.getElementById("filtro-moneda").value;
+            return (!fecha || egreso.fecha === fecha) &&
+                   (!cliente || egreso.cliente == cliente) &&
+                   (!medio || egreso.medio === medio) &&
+                   (!banco || egreso.banco === banco) &&
+                   (!moneda || egreso.moneda === moneda);
+        }
+        function resetEgresoForm() {
+            document.getElementById("egreso-form").reset();
+            document.getElementById("egreso-id").value = "";
+            document.getElementById("modal-egreso-title").textContent = "Nuevo Egreso";
+        }
+        function openEgresoModal() {
+            document.getElementById("egreso-modal").classList.remove("hidden");
+        }
+        function closeEgresoModal() {
+            document.getElementById("egreso-modal").classList.add("hidden");
+            resetEgresoForm();
+        }
+        document.getElementById("nuevo-egreso-btn").onclick = () => {
+            resetEgresoForm();
+            openEgresoModal();
+        };
+        document.getElementById("close-egreso-modal").onclick = closeEgresoModal;
+        document.getElementById("egreso-form").onsubmit = function(e) {
+            e.preventDefault();
+            const id = document.getElementById("egreso-id").value;
+            const fecha = document.getElementById("egreso-fecha").value;
+            const hora = document.getElementById("egreso-hora").value;
+            const cliente = parseInt(document.getElementById("egreso-cliente").value);
+            const medio = document.getElementById("egreso-medio").value;
+            const banco = document.getElementById("egreso-banco").value;
+            const moneda = document.getElementById("egreso-moneda").value;
+            const importe = parseFloat(document.getElementById("egreso-importe").value);
+            const concepto = document.getElementById("egreso-concepto").value;
+            if (id) {
+                // Editar
+                const ix = egresos.findIndex(i => i.id == id);
+                if (ix >= 0) {
+                    egresos[ix] = {id: egresos[ix].id, fecha, hora, cliente, medio, banco, moneda, importe, concepto};
+                }
+            } else {
+                // Nuevo
+                egresos.push({
+                    id: egresos.length ? Math.max(...egresos.map(i => i.id)) + 1 : 1,
+                    fecha, hora, cliente, medio, banco, moneda, importe, concepto
+                });
+            }
+            renderEgresos();
+            closeEgresoModal();
+        };
+        window.editarEgreso = function(id) {
+            const i = egresos.find(x => x.id == id);
+            if (!i) return;
+            document.getElementById("egreso-id").value = i.id;
+            document.getElementById("egreso-fecha").value = i.fecha;
+            document.getElementById("egreso-hora").value = i.hora;
+            document.getElementById("egreso-cliente").value = i.cliente;
+            document.getElementById("egreso-medio").value = i.medio;
+            document.getElementById("egreso-banco").value = i.banco;
+            document.getElementById("egreso-moneda").value = i.moneda;
+            document.getElementById("egreso-importe").value = i.importe;
+            document.getElementById("egreso-concepto").value = i.concepto;
+            document.getElementById("modal-egreso-title").textContent = "Editar Egreso";
+            openEgresoModal();
+        };
+        window.eliminarEgreso = function(id) {
+            if (confirm("¿Seguro que deseas eliminar este egreso?")) {
+                egresos = egresos.filter(i => i.id != id);
+                renderEgresos();
+            }
+        };
+        // Filtros
+        ["filtro-fecha","filtro-cliente","filtro-medio","filtro-banco","filtro-moneda"].forEach(id => {
+            document.getElementById(id).addEventListener("change", renderEgresos);
+        });
+        // Poblar selects de clientes
+        function poblarClientesSelect() {
+            const select = document.getElementById("egreso-cliente");
+            const filtro = document.getElementById("filtro-cliente");
+            select.innerHTML = '<option value="">Seleccione un cliente</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
+            filtro.innerHTML = '<option value="">Todos los clientes</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            poblarClientesSelect();
+            renderEgresos();
+        });
+        // Sidebar responsivo
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const closeBtn = document.getElementById('close-menu');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            menuBtn.addEventListener('click', function() {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            });
+            function closeMenu() {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+            closeBtn.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.add('lg:translate-x-0');
+                    closeMenu();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
