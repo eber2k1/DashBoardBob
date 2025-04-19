@@ -3,8 +3,8 @@
 ## Members
 
 - [ Eber solano](https://github.com/EberSolano) 
-- [ Sebastian Duran](https://github.com/SebastianDuran) 
+- [ Sebastian Durand](https://github.com/dandfres) 
 
 ## Roles
 - Lider técnico (Eber Solano) 
-- Desarrollador (Sebastian Duran)
+- Colaborador (Sebastian Durand)
