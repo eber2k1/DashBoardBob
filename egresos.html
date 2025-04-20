@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Egresos - Bob Subastas</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./script.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
 <body class="bg-gray-50 font-sans text-gray-800">
@@ -329,29 +330,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             poblarClientesSelect();
             renderEgresos();
-        });
-        // Sidebar responsivo
-        document.addEventListener('DOMContentLoaded', function() {
-            const menuBtn = document.getElementById('menu-btn');
-            const closeBtn = document.getElementById('close-menu');
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            menuBtn.addEventListener('click', function() {
-                sidebar.classList.remove('-translate-x-full');
-                overlay.classList.remove('hidden');
-            });
-            function closeMenu() {
-                sidebar.classList.add('-translate-x-full');
-                overlay.classList.add('hidden');
-            }
-            closeBtn.addEventListener('click', closeMenu);
-            overlay.addEventListener('click', closeMenu);
-            window.addEventListener('resize', function() {
-                if (window.innerWidth >= 1024) {
-                    sidebar.classList.add('lg:translate-x-0');
-                    closeMenu();
-                }
-            });
         });
     </script>
 </body>
