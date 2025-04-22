@@ -5,6 +5,7 @@ const sidebar = document.getElementById('sidebar');
 const overlay = document.getElementById('overlay');
 
 const modal = document.querySelector('#cliente-modal');
+const modalOverlay = document.getElementById('modal-overlay');
 const modalTitle = document.querySelector('#modal-title');
 const nuevoClienteBtn = document.querySelector('#nuevo-cliente-btn');
 const closeModalBtn = document.querySelector('#close-modal');
@@ -23,12 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     closeBtn.addEventListener('click', closeMenu);
     overlay.addEventListener('click', closeMenu);
-    // Cerrar menú en pantallas grandes cuando se redimensiona
-    window.addEventListener('resize', function () {
-        if (window.innerWidth >= 1024) {
-            closeMenu();
-        }
-    });
 });
 
 // Reset del formulario
@@ -41,11 +36,13 @@ function resetForm() {
 // Abre el modal
 function openModal() {
     if (modal) modal.classList.remove('hidden');
+    if (modalOverlay) modalOverlay.classList.remove('hidden');
 }
 
 // Cierra el modal
 function closeModal() {
     if (modal) modal.classList.add('hidden');
+    if (modalOverlay) modalOverlay.classList.add('hidden');
     resetForm();
 }
 

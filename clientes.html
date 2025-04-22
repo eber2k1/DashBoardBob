@@ -2,11 +2,11 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Clientes - Bob Subastas</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Clientes - Bob Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body class="bg-gray-50 font-sans text-gray-800 flex flex-col min-h-screen">
@@ -68,9 +68,9 @@
                 aria-label="Abrir menú" tabindex="0">
                 <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
             </button>
-            <h1 class="text-xl text-[#2c9494] font-bold">Bob Subastas</h1>
+            <h1 class="text-xl text-[#2c9494] font-bold">Bob Dashboard</h1>
         </div>
-        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Subastas" class="h-8">
+        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8" />
     </header>
 
     <!-- Cuerpo de la app -->
@@ -81,9 +81,12 @@
                 class="bg-white px-4 py-5 sm:px-6 border-b border-gray-200 rounded-t-lg shadow-sm flex flex-wrap items-center justify-between gap-3"
                 aria-labelledby="clientes-title">
                 <div>
-                    <h2 class="text-lg md:text-xl font-semibold text-gray-900" id="clientes-title">Gestión de Clientes
+                    <h2 class="text-lg md:text-xl font-semibold text-gray-900" id="clientes-title">
+                        Gestión de Clientes
                     </h2>
-                    <p class="mt-1 text-sm text-gray-500">Administra los clientes y sus balances</p>
+                    <p class="mt-1 text-sm text-gray-500">
+                        Administra los clientes y sus balances
+                    </p>
                 </div>
                 <div class="flex gap-2">
                     <button id="nuevo-cliente-btn"
@@ -100,7 +103,7 @@
                 aria-label="Filtros de búsqueda">
                 <input id="buscar-cliente" type="search"
                     class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-[#2c9494] focus:border-[#2c9494] sm:text-sm rounded-md"
-                    placeholder="Buscar cliente...">
+                    placeholder="Buscar cliente..." />
                 <select id="document-type-filter"
                     class="block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-[#2c9494] focus:border-[#2c9494] sm:text-sm rounded-md">
                     <option value="">Todos los tipos de documento</option>
@@ -128,23 +131,28 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre</th>
+                                Nombre
+                            </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Correo</th>
+                                Correo
+                            </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Tipo Doc.</th>
+                                Tipo Doc.
+                            </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                N° Documento</th>
+                                N° Documento
+                            </th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Observaciones</th>
+                                Observaciones
+                            </th>
                             <!-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Balance</th> -->
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Acciones</th>
+                                Acciones
+                            </th>
                         </tr>
                     </thead>
-                    <tbody id="clientes-tbody" class="bg-white divide-y divide-gray-200">
-                    </tbody>
+                    <tbody id="clientes-tbody" class="bg-white divide-y divide-gray-200"></tbody>
                 </table>
             </section>
 
@@ -154,206 +162,88 @@
         </article>
     </main>
 
+    <div id="modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
     <!-- Modal de registro/edición de cliente -->
-    <dialog id="cliente-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden"
+    <dialog id="cliente-modal"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-transparent p-2 sm:p-0 transition-opacity duration-200 rounded-xl hidden"
         role="dialog" aria-modal="true">
-        <form id="cliente-form" class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative space-y-4">
+        <form id="cliente-form"
+            class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative space-y-6 border border-gray-100 animate-fade-in">
+            <!-- Botón cerrar -->
             <button id="close-modal" type="button"
-                class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none" aria-label="Cerrar">
+                class="absolute top-4 right-4 text-gray-400 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-full transition-colors duration-150 text-2xl"
+                aria-label="Cerrar">
                 <i class="fa-solid fa-times"></i>
             </button>
-            <h2 class="text-xl font-semibold mb-4" id="modal-title">Nuevo Cliente</h2>
-            <input type="hidden" id="cliente-id">
+            <!-- Título -->
+            <h2 class="text-2xl font-bold mb-2 text-gray-800 flex items-center gap-2">
+                <i class="fa-solid fa-user-plus text-[#2c9494]"></i>
+                <span id="modal-title">Nuevo Cliente</span>
+            </h2>
+            <input type="hidden" id="cliente-id" />
+            <!-- Nombre -->
             <div>
-                <label for="cliente-nombre" class="block text-sm font-medium">Nombre o Razón Social</label>
-                <input id="cliente-nombre" name="nombre" type="text" required
-                    class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                <label for="cliente-nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre o Razón
+                    Social</label>
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i
+                            class="fa-solid fa-user"></i></span>
+                    <input id="cliente-nombre" name="nombre" type="text" required
+                        class="pl-10 pr-3 py-2 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] placeholder-gray-400 transition-all duration-150"
+                        placeholder="Ej: Juan Pérez o Empresa S.A." autocomplete="off" />
+                </div>
             </div>
+            <!-- Correo y Tipo Doc -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="cliente-correo" class="block text-sm font-medium">Correo</label>
-                    <input id="cliente-correo" name="correo" type="email" required
-                        class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                    <label for="cliente-correo" class="block text-sm font-medium text-gray-700 mb-1">Correo</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i
+                                class="fa-solid fa-envelope"></i></span>
+                        <input id="cliente-correo" name="correo" type="email" required
+                            class="pl-10 pr-3 py-2 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] placeholder-gray-400 transition-all duration-150"
+                            placeholder="correo@ejemplo.com" autocomplete="off" />
+                    </div>
                 </div>
                 <div>
-                    <label for="cliente-tipo-doc" class="block text-sm font-medium">Tipo Doc.</label>
+                    <label for="cliente-tipo-doc" class="block text-sm font-medium text-gray-700 mb-1">Tipo Doc.</label>
                     <select id="cliente-tipo-doc" name="tipo_doc" required
-                        class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                        class="mt-1 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] py-2 px-3 transition-all duration-150">
+                        <option value="">Seleccione...</option>
                         <option value="DNI">DNI</option>
                         <option value="RUC">RUC</option>
                     </select>
                 </div>
             </div>
+            <!-- Número Doc y Observaciones -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label for="cliente-numdoc" class="block text-sm font-medium">Número Doc.</label>
+                    <label for="cliente-numdoc" class="block text-sm font-medium text-gray-700 mb-1">Número Doc.</label>
                     <input id="cliente-numdoc" name="numdoc" type="text" required
-                        class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                        class="mt-1 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] py-2 px-3 placeholder-gray-400 transition-all duration-150"
+                        placeholder="Ej: 12345678" />
                 </div>
                 <div>
-                    <label for="cliente-observaciones" class="block text-sm font-medium">Observaciones</label>
+                    <label for="cliente-observaciones"
+                        class="block text-sm font-medium text-gray-700 mb-1">Observaciones</label>
                     <input id="cliente-observaciones" name="observaciones" type="text"
-                        class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                        class="mt-1 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] py-2 px-3 placeholder-gray-400 transition-all duration-150"
+                        placeholder="Opcional" />
                 </div>
             </div>
-            <div class="flex justify-end mt-4">
+            <!-- Botón Guardar -->
+            <div class="flex justify-end pt-2">
                 <button type="submit"
-                    class="bg-[#2c9494] text-white px-5 py-2 rounded hover:bg-[#237878] transition">Guardar</button>
+                    class="bg-[#2c9494] hover:bg-[#217373] text-white font-semibold py-2 px-6 rounded-lg shadow-md transition-transform duration-150 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#2c9494] focus:ring-offset-2">
+                    <i class="fa-solid fa-save mr-2"></i> Guardar
+                </button>
             </div>
         </form>
     </dialog>
 
-    
     <script src="js/store.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/clientes.js"></script>
-    <!-- <script>
-        // --- CLIENTES DEMO Y FUNCIONALIDAD ---
-        let clientes = [
-            { id: 1, nombre: "Javier Ramirez", correo: "jramirez@mail.com", tipo_doc: "DNI", numdoc: "12345678", observaciones: "", saldo: 2500 },
-            { id: 2, nombre: "Carlos Vega", correo: "cvega@mail.com", tipo_doc: "DNI", numdoc: "12345678D", observaciones: "VIP", saldo: 3200 },
-            { id: 3, nombre: "Empresa XYZ SAC", correo: "contacto@xyz.com", tipo_doc: "RUC", numdoc: "20123456789", observaciones: "", saldo: 5000 },
-            { id: 4, nombre: "Lucía Fernández", correo: "lucia.fernandez@mail.com", tipo_doc: "DNI", numdoc: "87654321", observaciones: "Participa seguido", saldo: 1800 },
-            { id: 5, nombre: "Transportes Lima S.A.", correo: "info@transporteslima.com", tipo_doc: "RUC", numdoc: "20567894561", observaciones: "", saldo: 0 },
-            { id: 6, nombre: "Pedro Castillo", correo: "pedro.castillo@mail.com", tipo_doc: "DNI", numdoc: "11223344", observaciones: "Observación ejemplo", saldo: 900 }
-        ];
-
-        function getBalanceFilterValue(cliente) {
-            const balanceFilter = document.getElementById("balance-filter").value;
-            if (balanceFilter === "positive") return cliente.saldo > 0;
-            if (balanceFilter === "zero") return cliente.saldo === 0;
-            return true;
-        }
-
-        function renderClientes(filtro = "") {
-            // Tabla desktop
-            const tbody = document.querySelector("#clientes-tbody");
-            if (tbody) {
-                tbody.innerHTML = "";
-                clientes.filter(c =>
-                    (c.nombre.toLowerCase().includes(filtro.toLowerCase()) || c.numdoc.includes(filtro)) &&
-                    getBalanceFilterValue(c)
-                ).forEach(cliente => {
-                    tbody.innerHTML += `
-                        <tr>
-                            <td class='px-6 py-4 whitespace-nowrap font-medium text-gray-900'>${cliente.nombre}</td>
-                            <td class='px-6 py-4 whitespace-nowrap text-gray-500'>${cliente.tipo_doc}</td>
-                            <td class='px-6 py-4 whitespace-nowrap text-gray-500'>${cliente.numdoc}</td>
-                            <td class='px-6 py-4 whitespace-nowrap text-gray-500'>$${cliente.saldo.toLocaleString()}</td>
-                            <td class='px-6 py-4 whitespace-nowrap text-right'>
-                                <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2' aria-label='Editar cliente' onclick='editarCliente(${cliente.id})'><i class='fa-solid fa-pen'></i></button>
-                                <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar cliente' onclick='eliminarCliente(${cliente.id})'><i class='fa-solid fa-trash'></i></button>
-                            </td>
-                        </tr>`;
-                });
-            }
-            // Tarjetas mobile
-            const mobileList = document.querySelector("#clientes-mobile-list");
-            if (mobileList) {
-                mobileList.innerHTML = "";
-                clientes.filter(c =>
-                    (c.nombre.toLowerCase().includes(filtro.toLowerCase()) || c.numdoc.includes(filtro)) &&
-                    getBalanceFilterValue(c)
-                ).forEach(cliente => {
-                    mobileList.innerHTML += `
-                        <article class='bg-white rounded-lg shadow p-4 flex flex-col gap-2 mb-2'>
-                            <div class='flex justify-between items-center'>
-                                <div>
-                                    <h3 class='font-semibold text-lg'>${cliente.nombre}</h3>
-                                    <p class='text-xs text-gray-500'>${cliente.tipo_doc}: ${cliente.numdoc}</p>
-                                </div>
-                                <div class='flex gap-2'>
-                                    <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded' aria-label='Editar cliente' onclick='editarCliente(${cliente.id})'><i class='fa-solid fa-pen'></i></button>
-                                    <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar cliente' onclick='eliminarCliente(${cliente.id})'><i class='fa-solid fa-trash'></i></button>
-                                </div>
-                            </div>
-                            <div class='text-sm text-gray-700'>Saldo: $${cliente.saldo.toLocaleString()}</div>
-                            <div class='text-xs text-gray-400'>${cliente.observaciones || ""}</div>
-                        </article>`;
-                });
-            }
-        }
-
-        function resetForm() {
-            document.getElementById("cliente-form").reset();
-            document.getElementById("cliente-id").value = "";
-            document.getElementById("modal-title").textContent = "Nuevo Cliente";
-        }
-
-        function openModal() {
-            document.getElementById("cliente-modal").classList.remove("hidden");
-        }
-        function closeModal() {
-            document.getElementById("cliente-modal").classList.add("hidden");
-            resetForm();
-        }
-
-        document.getElementById("nuevo-cliente-btn").onclick = () => {
-            resetForm();
-            openModal();
-        };
-        document.getElementById("close-modal").onclick = closeModal;
-        document.getElementById("cliente-form").onsubmit = function (e) {
-            e.preventDefault();
-            const id = document.getElementById("cliente-id").value;
-            const nombre = document.getElementById("cliente-nombre").value;
-            const correo = document.getElementById("cliente-correo").value;
-            const tipo_doc = document.getElementById("cliente-tipo-doc").value;
-            const numdoc = document.getElementById("cliente-numdoc").value;
-            const observaciones = document.getElementById("cliente-observaciones").value;
-            if (id) {
-                // Editar
-                const ix = clientes.findIndex(c => c.id == id);
-                if (ix >= 0) {
-                    clientes[ix] = { ...clientes[ix], nombre, correo, tipo_doc, numdoc, observaciones };
-                }
-            } else {
-                // Nuevo
-                clientes.push({
-                    id: clientes.length ? Math.max(...clientes.map(c => c.id)) + 1 : 1,
-                    nombre, correo, tipo_doc, numdoc, observaciones, saldo: 0
-                });
-            }
-            renderClientes(document.getElementById("buscar-cliente").value);
-            closeModal();
-        };
-
-        window.editarCliente = function (id) {
-            const c = clientes.find(x => x.id == id);
-            if (!c) return;
-            document.getElementById("cliente-id").value = c.id;
-            document.getElementById("cliente-nombre").value = c.nombre;
-            document.getElementById("cliente-correo").value = c.correo;
-            document.getElementById("cliente-tipo-doc").value = c.tipo_doc;
-            document.getElementById("cliente-numdoc").value = c.numdoc;
-            document.getElementById("cliente-observaciones").value = c.observaciones;
-            document.getElementById("modal-title").textContent = "Editar Cliente";
-            openModal();
-        };
-        window.eliminarCliente = function (id) {
-            if (confirm("¿Seguro que deseas eliminar este cliente?")) {
-                clientes = clientes.filter(c => c.id != id);
-                renderClientes(document.getElementById("buscar-cliente").value);
-            }
-        };
-
-        document.getElementById("buscar-cliente").addEventListener("input", function () {
-            renderClientes(this.value);
-        });
-
-        document.getElementById("balance-filter").addEventListener("change", function () {
-            renderClientes(document.getElementById("buscar-cliente").value);
-        });
-        document.getElementById("clear-filters").addEventListener("click", function () {
-            document.getElementById("buscar-cliente").value = "";
-            document.getElementById("balance-filter").value = "";
-            renderClientes();
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            renderClientes();
-        });
-    </script> -->
 </body>
 
 </html>

@@ -1,5 +1,3 @@
-
-
 // --- Selección de elementos al inicio ---
 const formClientes = document.querySelector('#form-clientes') || document.querySelector('#cliente-form');
 const inputId = document.querySelector('#cliente-id');
@@ -9,17 +7,17 @@ const inputTipoDoc = document.querySelector('#cliente-tipo-doc');
 const inputNumdoc = document.querySelector('#cliente-numdoc');
 const inputObservaciones = document.querySelector('#cliente-observaciones');
 const tbody = document.querySelector('#clientes-tbody');
-
-
-const buscarCliente = document.querySelector('#buscar-cliente');
-const balanceFilter = document.querySelector('#balance-filter');
-const clearFiltersBtn = document.querySelector('#clear-filters');
 const mobileList = document.querySelector('#clientes-mobile-list');
 
+const buscarCliente = document.querySelector('#buscar-cliente');
+const documentTypeFilter = document.querySelector('#document-type-filter');
+const balanceFilter = document.querySelector('#balance-filter');
+const clearFiltersBtn = document.querySelector('#clear-filters');
+
 // --- Renderiza la tabla de clientes ---
-function renderClientes() {
+function renderClientes(clientes) {
     if (!tbody) return;
-    const clientes = clientesStore.getState();
+    clientes = clientes || clientesStore.getState();
     tbody.innerHTML = '';
     clientes.forEach(cliente => {
         tbody.innerHTML += `
@@ -35,14 +33,13 @@ function renderClientes() {
                 </td>
             </tr>
         `;
-
     });
 }
 
 // --- Renderiza la lista de clientes para móviles ---
-function mobileRenderClientes() {
+function mobileRenderClientes(clientes) {
     if (!mobileList) return;
-    const clientes = clientesStore.getState();
+    clientes = clientes || clientesStore.getState();
     mobileList.classList.remove('hidden');
     mobileList.innerHTML = '';
     clientes.forEach(cliente => {
@@ -100,7 +97,7 @@ window.eliminarCliente = function (id) {
     }
 }
 
-// Editar cliente
+// almacenar datos del cliente para editar
 window.editarCliente = function (id) {
     const cliente = clientesStore.getById(id);
     if (!cliente) return;
@@ -114,10 +111,33 @@ window.editarCliente = function (id) {
     modal.classList.remove('hidden');
 }
 
-// Reactividad: vuelve a renderizar si cambia el store
-clientesStore.subscribe(renderClientes);
-clientesStore.subscribe(mobileRenderClientes);
+// filtrar dni o ruc
 
+// Buscar cliente
+buscarCliente.addEventListener('input', function (e) {
+    const clientes = clientesStore.getState();
+    const nombre = buscarCliente.value.toLowerCase();
+    const filteredClientes = clientes.filter(cliente => cliente.nombre.toLowerCase().includes(nombre));
+    renderClientes(filteredClientes);
+    mobileRenderClientes(filteredClientes);
+});
+
+// Filtrar clientes por tipo de documento
+documentTypeFilter.addEventListener('change', function (e) {
+    const clientes = clientesStore.getState();
+    const tipo_doc = documentTypeFilter.value;
+    const filteredClientes = clientes.filter(cliente => cliente.tipo_doc.toLowerCase() === tipo_doc.toLowerCase());
+    renderClientes(filteredClientes);
+    mobileRenderClientes(filteredClientes);
+});
+
+// Reactividad: vuelve a renderizar si cambia el store
+clientesStore.subscribe(() => {
+    renderClientes();
+    mobileRenderClientes();
+});
+
+// Cargar clientes al inicio
 document.addEventListener('DOMContentLoaded', () => {
     renderClientes();
     mobileRenderClientes();
