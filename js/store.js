@@ -83,3 +83,11 @@ function calcularBalanceGeneral() {
     const totalEgresos = egresos.reduce((sum, e) => sum + Number(e.importe || 0), 0);
     return totalIngresos - totalEgresos;
 }
+
+// --- Utilidad para conversión de moneda ---
+window.convertirImporte = function(importe, monedaOrigen, monedaDestino, tipoCambio) {
+    if (monedaOrigen === monedaDestino || !tipoCambio) return Number(importe);
+    if (monedaOrigen === 'USD' && monedaDestino === 'PEN') return Number(importe) * tipoCambio;
+    if (monedaOrigen === 'PEN' && monedaDestino === 'USD') return Number(importe) / tipoCambio;
+    return Number(importe);
+};

@@ -107,8 +107,8 @@
                         </select>
                     </div>
                     <!-- Tabla de egresos -->
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
@@ -124,13 +124,12 @@
                             </thead>
                             <tbody id="egresos-tbody" class="bg-white divide-y divide-gray-200"></tbody>
                         </table>
-                    </div>
                 </div>
             </div>
             <!-- Modal de nuevo egreso -->
             <div id="egreso-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" role="dialog" aria-modal="true">
                 <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
-                    <button id="close-egreso-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
+                    <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
                         <i class="fa-solid fa-times"></i>
                     </button>
                     <h2 class="text-xl font-semibold mb-4" id="modal-egreso-title">Nuevo Egreso</h2>
@@ -148,9 +147,11 @@
                         </div>
                         <div>
                             <label for="egreso-cliente" class="block text-sm font-medium">Cliente</label>
-                            <select id="egreso-cliente" name="cliente" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
-                                <option value="">Seleccione un cliente</option>
-                            </select>
+                            <div class="relative">
+                                <input id="egreso-cliente-autocomplete" name="cliente_nombre" type="text" autocomplete="off" required class="mt-1 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] bg-gray-50 px-3 py-2" placeholder="Escribe el nombre del cliente">
+                                <input type="hidden" id="egreso-cliente" name="cliente">
+                                <ul id="egreso-autocomplete-list" class="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded-md mt-1 shadow-lg hidden max-h-40 overflow-y-auto"></ul>
+                            </div>
                         </div>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -197,139 +198,7 @@
         </main>
     </div>
     <script src="js/utils.js"></script>
-    <script>
-        // --- CLIENTES DEMO (igual que clientes.html) ---
-        const clientes = [
-            {id: 1, nombre: "Javier Ramirez"},
-            {id: 2, nombre: "Carlos Vega"},
-            {id: 3, nombre: "Empresa XYZ SAC"},
-            {id: 4, nombre: "Lucía Fernández"},
-            {id: 5, nombre: "Transportes Lima S.A."},
-            {id: 6, nombre: "Pedro Castillo"}
-        ];
-        // --- EGRESOS DEMO ---
-        let egresos = [
-            {id: 1, fecha: "2025-04-18", hora: "13:00", cliente: 1, medio: "Transferencia", banco: "BCP", moneda: "PEN", importe: 500, concepto: "Devolución garantía"},
-            {id: 2, fecha: "2025-04-18", hora: "15:20", cliente: 4, medio: "Depósito", banco: "Interbank", moneda: "USD", importe: 300, concepto: "Reembolso parcial"},
-            {id: 3, fecha: "2025-04-17", hora: "18:00", cliente: 2, medio: "Efectivo", banco: "BBVA", moneda: "PEN", importe: 250, concepto: "Devolución garantía"}
-        ];
-        function getClienteNombre(id) {
-            const c = clientes.find(x => x.id == id);
-            return c ? c.nombre : "";
-        }
-        function renderEgresos() {
-            const tbody = document.getElementById("egresos-tbody");
-            tbody.innerHTML = "";
-            egresos.filter(filtrarEgreso).forEach(egreso => {
-                tbody.innerHTML += `
-                    <tr>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.fecha}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.hora}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${getClienteNombre(egreso.cliente)}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.medio}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.banco}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.moneda}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.moneda} ${Number(egreso.importe).toLocaleString()}</td>
-                        <td class='px-4 py-2 whitespace-nowrap'>${egreso.concepto}</td>
-                        <td class='px-4 py-2 whitespace-nowrap text-right'>
-                            <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2' aria-label='Editar egreso' onclick='editarEgreso(${egreso.id})'><i class='fa-solid fa-pen'></i></button>
-                            <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar egreso' onclick='eliminarEgreso(${egreso.id})'><i class='fa-solid fa-trash'></i></button>
-                        </td>
-                    </tr>`;
-            });
-        }
-        function filtrarEgreso(egreso) {
-            const fecha = document.getElementById("filtro-fecha").value;
-            const cliente = document.getElementById("filtro-cliente").value;
-            const medio = document.getElementById("filtro-medio").value;
-            const banco = document.getElementById("filtro-banco").value;
-            const moneda = document.getElementById("filtro-moneda").value;
-            return (!fecha || egreso.fecha === fecha) &&
-                   (!cliente || egreso.cliente == cliente) &&
-                   (!medio || egreso.medio === medio) &&
-                   (!banco || egreso.banco === banco) &&
-                   (!moneda || egreso.moneda === moneda);
-        }
-        function resetEgresoForm() {
-            document.getElementById("egreso-form").reset();
-            document.getElementById("egreso-id").value = "";
-            document.getElementById("modal-egreso-title").textContent = "Nuevo Egreso";
-        }
-        function openEgresoModal() {
-            document.getElementById("egreso-modal").classList.remove("hidden");
-        }
-        function closeEgresoModal() {
-            document.getElementById("egreso-modal").classList.add("hidden");
-            resetEgresoForm();
-        }
-        document.getElementById("nuevo-egreso-btn").onclick = () => {
-            resetEgresoForm();
-            openEgresoModal();
-        };
-        document.getElementById("close-egreso-modal").onclick = closeEgresoModal;
-        document.getElementById("egreso-form").onsubmit = function(e) {
-            e.preventDefault();
-            const id = document.getElementById("egreso-id").value;
-            const fecha = document.getElementById("egreso-fecha").value;
-            const hora = document.getElementById("egreso-hora").value;
-            const cliente = parseInt(document.getElementById("egreso-cliente").value);
-            const medio = document.getElementById("egreso-medio").value;
-            const banco = document.getElementById("egreso-banco").value;
-            const moneda = document.getElementById("egreso-moneda").value;
-            const importe = parseFloat(document.getElementById("egreso-importe").value);
-            const concepto = document.getElementById("egreso-concepto").value;
-            if (id) {
-                // Editar
-                const ix = egresos.findIndex(i => i.id == id);
-                if (ix >= 0) {
-                    egresos[ix] = {id: egresos[ix].id, fecha, hora, cliente, medio, banco, moneda, importe, concepto};
-                }
-            } else {
-                // Nuevo
-                egresos.push({
-                    id: egresos.length ? Math.max(...egresos.map(i => i.id)) + 1 : 1,
-                    fecha, hora, cliente, medio, banco, moneda, importe, concepto
-                });
-            }
-            renderEgresos();
-            closeEgresoModal();
-        };
-        window.editarEgreso = function(id) {
-            const i = egresos.find(x => x.id == id);
-            if (!i) return;
-            document.getElementById("egreso-id").value = i.id;
-            document.getElementById("egreso-fecha").value = i.fecha;
-            document.getElementById("egreso-hora").value = i.hora;
-            document.getElementById("egreso-cliente").value = i.cliente;
-            document.getElementById("egreso-medio").value = i.medio;
-            document.getElementById("egreso-banco").value = i.banco;
-            document.getElementById("egreso-moneda").value = i.moneda;
-            document.getElementById("egreso-importe").value = i.importe;
-            document.getElementById("egreso-concepto").value = i.concepto;
-            document.getElementById("modal-egreso-title").textContent = "Editar Egreso";
-            openEgresoModal();
-        };
-        window.eliminarEgreso = function(id) {
-            if (confirm("¿Seguro que deseas eliminar este egreso?")) {
-                egresos = egresos.filter(i => i.id != id);
-                renderEgresos();
-            }
-        };
-        // Filtros
-        ["filtro-fecha","filtro-cliente","filtro-medio","filtro-banco","filtro-moneda"].forEach(id => {
-            document.getElementById(id).addEventListener("change", renderEgresos);
-        });
-        // Poblar selects de clientes
-        function poblarClientesSelect() {
-            const select = document.getElementById("egreso-cliente");
-            const filtro = document.getElementById("filtro-cliente");
-            select.innerHTML = '<option value="">Seleccione un cliente</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
-            filtro.innerHTML = '<option value="">Todos los clientes</option>' + clientes.map(c => `<option value="${c.id}">${c.nombre}</option>`).join("");
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            poblarClientesSelect();
-            renderEgresos();
-        });
-    </script>
+    <script src="js/store.js"></script>
+    <script src="js/egresos.js"></script>
 </body>
 </html>

@@ -14,10 +14,43 @@ const documentTypeFilter = document.querySelector('#document-type-filter');
 const balanceFilter = document.querySelector('#balance-filter');
 const clearFiltersBtn = document.querySelector('#clear-filters');
 
+const sortIcon = document.querySelectorAll('.sort-icon');
+const sortTh = document.querySelectorAll('th[data-sort]');
+
+// --- Estado de ordenamiento global ---
+let clientesSortCol = null;
+let clientesSortDir = 1;
+window.setClientesSort = function(col, dir) {
+    clientesSortCol = col;
+    clientesSortDir = dir;
+    aplicarFiltros();
+};
+
+function sortClientes(clientes) {
+    if (!clientesSortCol) return clientes;
+    const sorted = [...clientes].sort((a, b) => {
+        let va = a[clientesSortCol] || '';
+        let vb = b[clientesSortCol] || '';
+        // Para que numdoc (número) ordene numéricamente si corresponde
+        if (clientesSortCol === 'numdoc' && !isNaN(va) && !isNaN(vb)) {
+            va = Number(va);
+            vb = Number(vb);
+        } else {
+            va = va.toString().toLowerCase();
+            vb = vb.toString().toLowerCase();
+        }
+        if (va < vb) return -1 * clientesSortDir;
+        if (va > vb) return 1 * clientesSortDir;
+        return 0;
+    });
+    return sorted;
+}
+
 // --- Renderiza la tabla de clientes ---
 function renderClientes(clientes) {
     if (!tbody) return;
     clientes = clientes || clientesStore.getState();
+    clientes = sortClientes(clientes);
     tbody.innerHTML = '';
     clientes.forEach(cliente => {
         tbody.innerHTML += `
@@ -40,6 +73,7 @@ function renderClientes(clientes) {
 function mobileRenderClientes(clientes) {
     if (!mobileList) return;
     clientes = clientes || clientesStore.getState();
+    clientes = sortClientes(clientes);
     mobileList.classList.remove('hidden');
     mobileList.innerHTML = '';
     clientes.forEach(cliente => {
@@ -160,6 +194,53 @@ clearFiltersBtn.addEventListener('click', function() {
     if (balanceFilter) balanceFilter.value = '';
     aplicarFiltros();
 });
+
+
+ // --- ORDENAMIENTO DE TABLA DE CLIENTES CON ICONOS ---
+ let sortCol = null;
+ let sortDir = 1;
+ const sortIcons = {
+     default: 'fa-sort',
+     asc: 'fa-sort-up',
+     desc: 'fa-sort-down'
+ };
+ function updateSortIcons() {
+    sortIcon.forEach(icon => {
+         const col = icon.getAttribute('data-col');
+         icon.classList.remove('fa-sort-up', 'fa-sort-down', 'fa-sort', 'text-[#2c9494]');
+         if (sortCol === col) {
+             if (sortDir === 1) {
+                 icon.classList.add('fa-sort-up', 'text-[#2c9494]');
+             } else if (sortDir === -1) {
+                 icon.classList.add('fa-sort-down', 'text-[#2c9494]');
+             }
+         } else {
+             icon.classList.add('fa-sort');
+         }
+     });
+ }
+
+// Eventos de ordenamiento
+sortTh.forEach(th => {
+     th.addEventListener('click', function() {
+         const col = th.getAttribute('data-sort');
+         if (sortCol === col) {
+             sortDir = -sortDir;
+             // Si ya estaba descendente, vuelve a estado original (sin orden)
+             if (sortDir === 1 && th.querySelector('.sort-icon').classList.contains('fa-sort-down')) {
+                 sortCol = null;
+                 sortDir = 1;
+             }
+         } else {
+             sortCol = col;
+             sortDir = 1;
+         }
+         window.setClientesSort && window.setClientesSort(sortCol, sortDir);
+         updateSortIcons();
+     });
+ });
+ // Inicializa iconos
+ updateSortIcons();
 
 
 // Reactividad: vuelve a renderizar si cambia el store

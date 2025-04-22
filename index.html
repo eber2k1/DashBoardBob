@@ -68,7 +68,14 @@
             </button>
             <h1 class="text-xl text-[#2c9494] font-bold">Bob Dashboard</h1>
         </div>
-        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8">
+        <div class="flex items-center gap-4">
+            <span id="tipo-cambio" class="text-sm bg-indigo-50 border border-indigo-200 rounded px-3 py-1 font-semibold text-indigo-800 flex items-center" title="Tipo de cambio actualizado en tiempo real">
+                <i class="fa-solid fa-dollar-sign mr-1"></i>
+                <span id="valor-tipo-cambio">Cargando...</span>
+                <span class="ml-1">USD/PEN</span>
+            </span>
+            <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8">
+        </div>
     </header>
 
     <!-- Cuerpo de la app -->
@@ -86,15 +93,41 @@
                             <p class="text-xl md:text-2xl font-bold mt-2">123</p>
                         </div>
                         <div class="bg-green-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-green-800 text-sm md:text-base">Ingresos</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2">$12,000</p>
+                            <h3 class="font-semibold text-green-800 text-sm md:text-base">Ingresos (<span id="moneda-label-ingresos">PEN</span>)</h3>
+                            <p class="text-xl md:text-2xl font-bold mt-2" id="ingresos-card">0.00</p>
                         </div>
                         <div class="bg-yellow-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-yellow-800 text-sm md:text-base">Egresos</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2">$12,000</p>
+                            <h3 class="font-semibold text-yellow-800 text-sm md:text-base">Egresos (<span id="moneda-label-egresos">PEN</span>)</h3>
+                            <p class="text-xl md:text-2xl font-bold mt-2" id="egresos-card">0.00</p>
+                        </div>
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-indigo-800 text-sm md:text-base">Balance (<span id="moneda-label-balance">PEN</span>)</h3>
+                            <p class="text-xl md:text-2xl font-bold mt-2" id="balance-general-card">0.00</p>
                         </div>
                     </div>
+                    <div class="mt-4 flex gap-2 items-center">
+                        <label for="moneda-dashboard" class="text-sm font-medium">Ver montos en:</label>
+                        <select id="moneda-dashboard" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-indigo-200">
+                            <option value="PEN">Soles (PEN)</option>
+                            <option value="USD">Dólares (USD)</option>
+                        </select>
+                    </div>
                 </div>
+
+                <!-- GRAFICA DE CLIENTES POR TIPO DE DOCUMENTO -->
+                <section class="my-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
+                        <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
+                            <i class="fa-solid fa-chart-pie mr-2 text-[#2c9494]"></i>
+                            Clientes por Tipo de Documento
+                        </h2>
+                        <div class="mb-4 text-center">
+                            <span id="totalClientes" class="inline-block text-2xl font-bold text-[#2c9494]"></span>
+                            <span class="block text-sm text-gray-500">Total de clientes</span>
+                        </div>
+                        <canvas id="clientesTipoDocChart" width="280" height="280"></canvas>
+                    </div>
+                </section>
 
                 <!-- Tabla de últimos registros -->
                 <div class="bg-white rounded-lg shadow">
@@ -184,6 +217,9 @@
             </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
