@@ -111,34 +111,59 @@ window.editarCliente = function (id) {
     modal.classList.remove('hidden');
 }
 
-// filtrar dni o ruc
+// --- Filtrar clientes ---
+function aplicarFiltros() {
+    const clientes = clientesStore.getState();
+    const texto = buscarCliente.value.toLowerCase();
+    const tipo_doc = documentTypeFilter.value.toLowerCase();
+    const balance = balanceFilter.value;
+
+    let filtrados = clientes;
+
+    // Filtrar por texto (nombre, correo, numdoc)
+    if (texto) {
+        filtrados = filtrados.filter(cliente =>
+            cliente.nombre.toLowerCase().includes(texto) ||
+            cliente.correo.toLowerCase().includes(texto) ||
+            cliente.numdoc.toLowerCase().includes(texto)
+        );
+    }
+
+    // Filtrar por tipo_doc si está seleccionado
+    if (tipo_doc) {
+        filtrados = filtrados.filter(cliente => cliente.tipo_doc && cliente.tipo_doc.toLowerCase() === tipo_doc);
+    }
+
+    // Filtrar por balance si está seleccionado
+    if (balance) {
+        if (balance === 'positive') {
+            filtrados = filtrados.filter(cliente => Number(cliente.saldo) > 0);
+        } else if (balance === 'zero') {
+            filtrados = filtrados.filter(cliente => Number(cliente.saldo) === 0);
+        }
+    }
+
+    renderClientes(filtrados);
+    mobileRenderClientes(filtrados);
+}
 
 // Buscar cliente
-buscarCliente.addEventListener('input', function (e) {
-    const clientes = clientesStore.getState();
-    const nombre = buscarCliente.value.toLowerCase();
-    const filteredClientes = clientes.filter(cliente => cliente.nombre.toLowerCase().includes(nombre));
-    renderClientes(filteredClientes);
-    mobileRenderClientes(filteredClientes);
+buscarCliente.addEventListener('input', aplicarFiltros);
+// Filtrar clientes por tipo de documento
+documentTypeFilter.addEventListener('change', aplicarFiltros);
+// Filtrar clientes por balance
+balanceFilter.addEventListener('change', aplicarFiltros);
+// Limpiar filtros
+clearFiltersBtn.addEventListener('click', function() {
+    buscarCliente.value = '';
+    if (documentTypeFilter) documentTypeFilter.value = '';
+    if (balanceFilter) balanceFilter.value = '';
+    aplicarFiltros();
 });
 
-// Filtrar clientes por tipo de documento
-documentTypeFilter.addEventListener('change', function (e) {
-    const clientes = clientesStore.getState();
-    const tipo_doc = documentTypeFilter.value;
-    const filteredClientes = clientes.filter(cliente => cliente.tipo_doc.toLowerCase() === tipo_doc.toLowerCase());
-    renderClientes(filteredClientes);
-    mobileRenderClientes(filteredClientes);
-});
 
 // Reactividad: vuelve a renderizar si cambia el store
-clientesStore.subscribe(() => {
-    renderClientes();
-    mobileRenderClientes();
-});
+clientesStore.subscribe(aplicarFiltros);
 
 // Cargar clientes al inicio
-document.addEventListener('DOMContentLoaded', () => {
-    renderClientes();
-    mobileRenderClientes();
-});
+document.addEventListener('DOMContentLoaded', aplicarFiltros);
