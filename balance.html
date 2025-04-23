@@ -196,14 +196,5 @@
 <script src="js/utils.js"></script>
 <script src="js/store.js"></script>
 <script src="js/balances.js"></script>
-<script>
-// Asegura que el tipo de cambio se muestre en el header, aunque no haya dashboard
-window.addEventListener('DOMContentLoaded', function() {
-    if (typeof actualizarTipoCambio === 'function') {
-        actualizarTipoCambio();
-        setInterval(actualizarTipoCambio, 5 * 60 * 1000);
-    }
-});
-</script>
 </body>
 </html>

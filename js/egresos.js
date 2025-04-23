@@ -19,40 +19,6 @@ const filtroMedio = document.getElementById('filtro-medio');
 const filtroBanco = document.getElementById('filtro-banco');
 const filtroMoneda = document.getElementById('filtro-moneda');
 
-// --- Autocompletado de cliente en modal de egreso ---
-egresoClienteAutocomplete.addEventListener('input', function() {
-    const value = this.value.trim().toLowerCase();
-    egresoAutocompleteList.innerHTML = '';
-    if (!value) {
-        egresoAutocompleteList.classList.add('hidden');
-        egresoClienteHidden.value = '';
-        return;
-    }
-    const clientes = clientesStore.getState();
-    const matches = clientes.filter(c => c.nombre.toLowerCase().includes(value));
-    if (matches.length === 0) {
-        egresoAutocompleteList.classList.add('hidden');
-        egresoClienteHidden.value = '';
-        return;
-    }
-    matches.forEach(cliente => {
-        const li = document.createElement('li');
-        li.textContent = cliente.nombre;
-        li.className = 'px-3 py-2 cursor-pointer hover:bg-[#f3ab13]/20';
-        li.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            egresoClienteAutocomplete.value = cliente.nombre;
-            egresoClienteHidden.value = cliente.id;
-            egresoAutocompleteList.classList.add('hidden');
-        });
-        egresoAutocompleteList.appendChild(li);
-    });
-    egresoAutocompleteList.classList.remove('hidden');
-});
-
-egresoClienteAutocomplete.addEventListener('blur', function() {
-    setTimeout(() => egresoAutocompleteList.classList.add('hidden'), 100);
-});
 
 // --- CRUD Egresos ---
 function renderEgresos() {
@@ -138,6 +104,42 @@ function resetEgresoForm() {
     egresoClienteHidden.value = '';
     egresoId.value = '';
 }
+
+// --- Autocompletado de cliente en modal de egreso ---
+egresoClienteAutocomplete.addEventListener('input', function() {
+    const value = this.value.trim().toLowerCase();
+    egresoAutocompleteList.innerHTML = '';
+    if (!value) {
+        egresoAutocompleteList.classList.add('hidden');
+        egresoClienteHidden.value = '';
+        return;
+    }
+    const clientes = clientesStore.getState();
+    const matches = clientes.filter(c => c.nombre.toLowerCase().includes(value));
+    if (matches.length === 0) {
+        egresoAutocompleteList.classList.add('hidden');
+        egresoClienteHidden.value = '';
+        return;
+    }
+    matches.forEach(cliente => {
+        const li = document.createElement('li');
+        li.textContent = cliente.nombre;
+        li.className = 'px-3 py-2 cursor-pointer hover:bg-[#f3ab13]/20';
+        li.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            egresoClienteAutocomplete.value = cliente.nombre;
+            egresoClienteHidden.value = cliente.id;
+            egresoAutocompleteList.classList.add('hidden');
+        });
+        egresoAutocompleteList.appendChild(li);
+    });
+    egresoAutocompleteList.classList.remove('hidden');
+});
+
+egresoClienteAutocomplete.addEventListener('blur', function() {
+    setTimeout(() => egresoAutocompleteList.classList.add('hidden'), 100);
+});
+
 
 function poblarClientesSelectEgreso() {
     const clientes = clientesStore.getState();

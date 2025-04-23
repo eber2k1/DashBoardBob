@@ -44,40 +44,6 @@ function renderIngresos() {
     });
 }
 
-// --- Autocompletado de cliente en modal de ingreso ---
-clienteAutocompleteInput.addEventListener('input', function() {
-    const value = this.value.trim().toLowerCase();
-    autocompleteList.innerHTML = '';
-    if (!value) {
-        autocompleteList.classList.add('hidden');
-        clienteHiddenInput.value = '';
-        return;
-    }
-    const clientes = clientesStore.getState();
-    const matches = clientes.filter(c => c.nombre.toLowerCase().includes(value));
-    if (matches.length === 0) {
-        autocompleteList.classList.add('hidden');
-        clienteHiddenInput.value = '';
-        return;
-    }
-    matches.forEach(cliente => {
-        const li = document.createElement('li');
-        li.textContent = cliente.nombre;
-        li.className = 'px-3 py-2 cursor-pointer hover:bg-[#f3ab13]/20';
-        li.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            clienteAutocompleteInput.value = cliente.nombre;
-            clienteHiddenInput.value = cliente.id;
-            autocompleteList.classList.add('hidden');
-        });
-        autocompleteList.appendChild(li);
-    });
-    autocompleteList.classList.remove('hidden');
-});
-
-clienteAutocompleteInput.addEventListener('blur', function() {
-    setTimeout(() => autocompleteList.classList.add('hidden'), 100);
-});
 
 // --- Crear o editar ingreso ---
 ingresoForm.addEventListener('submit', function (e) {
@@ -142,6 +108,42 @@ window.eliminarIngreso = function(id) {
         renderIngresos();
     }
 };
+
+// --- Autocompletado de cliente en modal de ingreso ---
+clienteAutocompleteInput.addEventListener('input', function() {
+    const value = this.value.trim().toLowerCase();
+    autocompleteList.innerHTML = '';
+    if (!value) {
+        autocompleteList.classList.add('hidden');
+        clienteHiddenInput.value = '';
+        return;
+    }
+    const clientes = clientesStore.getState();
+    const matches = clientes.filter(c => c.nombre.toLowerCase().includes(value));
+    if (matches.length === 0) {
+        autocompleteList.classList.add('hidden');
+        clienteHiddenInput.value = '';
+        return;
+    }
+    matches.forEach(cliente => {
+        const li = document.createElement('li');
+        li.textContent = cliente.nombre;
+        li.className = 'px-3 py-2 cursor-pointer hover:bg-[#f3ab13]/20';
+        li.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            clienteAutocompleteInput.value = cliente.nombre;
+            clienteHiddenInput.value = cliente.id;
+            autocompleteList.classList.add('hidden');
+        });
+        autocompleteList.appendChild(li);
+    });
+    autocompleteList.classList.remove('hidden');
+});
+
+clienteAutocompleteInput.addEventListener('blur', function() {
+    setTimeout(() => autocompleteList.classList.add('hidden'), 100);
+});
+
 
 // --- Poblar select de clientes (ya no necesario para modal, pero sí para filtro) ---
 function poblarClientesSelect() {

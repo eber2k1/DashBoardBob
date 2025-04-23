@@ -1,66 +1,98 @@
 // --- Dashboard resumen Bob ---
 
-document.addEventListener('DOMContentLoaded', function() {
-    renderDashboardResumen();
-    renderUltimosRegistros();
-    // Reactividad: actualiza si cambia algún store
-    clientesStore.subscribe(renderDashboardResumen);
-    ingresosStore.subscribe(() => {
-        renderDashboardResumen();
-        renderUltimosRegistros();
-    });
-    egresosStore.subscribe(() => {
-        renderDashboardResumen();
-        renderUltimosRegistros();
-    });
-    actualizarTipoCambio();
-    setInterval(actualizarTipoCambio, 5 * 60 * 1000); // Actualiza cada 5 minutos
-});
+// ==== GLOBAL ELEMENTS ====
+const ingresosCardEl = document.querySelector('#ingresos-card');
+const egresosCardEl = document.querySelector('#egresos-card');
+const balanceGeneralCardEl = document.querySelector('#balance-general-card');
+const monedaLabelIngresosEl = document.querySelector('#moneda-label-ingresos');
+const monedaLabelEgresosEl = document.querySelector('#moneda-label-egresos');
+const monedaLabelBalanceEl = document.querySelector('#moneda-label-balance');
+const clientesCardEl = document.querySelector('.bg-blue-50 .font-bold');
+const tbodyMovimientosEl = document.querySelector('tbody.bg-white.divide-y');
+const selectMonedaEl = document.querySelector('#moneda-dashboard');
+const totalClientesEl = document.querySelector('#totalClientes');
+const clientesTipoDocChartEl = document.querySelector('#clientesTipoDocChart');
 
-function renderDashboardResumen() {
-    const clientes = clientesStore.getState();
-    const totalClientes = clientes.length;
-    const ingresos = ingresosStore.getState();
-    const egresos = egresosStore.getState();
-    const moneda = window.monedaDashboard || 'PEN';
-    const tipoCambio = window.tipoCambioActual || 1;
-    let totalIngresos = 0, totalEgresos = 0;
-    ingresos.forEach(i => {
-        totalIngresos += window.convertirImporte(i.importe, i.moneda || 'PEN', moneda, tipoCambio);
-    });
-    egresos.forEach(e => {
-        totalEgresos += window.convertirImporte(e.importe, e.moneda || 'PEN', moneda, tipoCambio);
-    });
-    const balance = totalIngresos - totalEgresos;
-    // Actualiza cards
-    document.getElementById('ingresos-card').textContent = totalIngresos.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-    document.getElementById('egresos-card').textContent = totalEgresos.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-    document.getElementById('balance-general-card').textContent = balance.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
-    document.getElementById('moneda-label-ingresos').textContent = moneda;
-    document.getElementById('moneda-label-egresos').textContent = moneda;
-    document.getElementById('moneda-label-balance').textContent = moneda;
-    // Clientes
-    const clientesCard = document.querySelector('.bg-blue-50 .font-bold');
-    if (clientesCard) clientesCard.textContent = totalClientes;
+// === DATA HELPERS ===
+
+// funcion para obtener los ingresos en una moneda dada
+function getIngresosEnMoneda(moneda, tipoCambio) {
+    return ingresosStore.getState().reduce((total, i) => {
+        return total + window.convertirImporte(i.importe, i.moneda || 'PEN', moneda, tipoCambio);
+    }, 0);
 }
 
-function renderUltimosRegistros() {
-    // Obtener los 5 últimos ingresos y egresos (por fecha+hora)
+// funcion para obtener los egresos en una moneda dada
+function getEgresosEnMoneda(moneda, tipoCambio) {
+    return egresosStore.getState().reduce((total, e) => {
+        return total + window.convertirImporte(e.importe, e.moneda || 'PEN', moneda, tipoCambio);
+    }, 0);
+}
+
+// funcion para obtener el total de clientes
+function getTotalClientes() {
+    return clientesStore.getState().length;
+}
+
+// funcion para obtener los ultimos movimientos
+function getUltimosMovimientos(n = 5) {
     const ingresos = ingresosStore.getState().map(i => ({...i, tipo: 'Ingreso'}));
     const egresos = egresosStore.getState().map(e => ({...e, tipo: 'Egreso'}));
-    const movimientos = [...ingresos, ...egresos]
+    return [...ingresos, ...egresos]
         .sort((a, b) => {
             const fechaA = a.fecha + ' ' + (a.hora || '00:00');
             const fechaB = b.fecha + ' ' + (b.hora || '00:00');
             return fechaB.localeCompare(fechaA);
         })
-        .slice(0, 5);
-    const tbody = document.querySelector('tbody.bg-white.divide-y');
-    if (!tbody) return;
-    tbody.innerHTML = '';
+        .slice(0, n);
+}
+
+// funcion para obtener un cliente por su id
+function getClientePorId(id) {
+    return clientesStore.getById(id);
+}
+
+// ==== DOM HELPERS ====
+
+// funcion para setear un valor en un elemento
+function setCardValue(element, value) {
+    if (element) element.textContent = value;
+}
+
+// funcion para setear un label en un elemento
+function setCardLabel(element, value) {
+    if (element) element.textContent = value;
+}
+
+// funcion para setear el total de clientes
+function setClientesCard(value) {
+    if (clientesCardEl) clientesCardEl.textContent = value;
+}
+
+// funcion para renderizar el dashboard resumen
+function renderDashboardResumen() {
+    const moneda = window.monedaDashboard || 'PEN';
+    const tipoCambio = window.tipoCambioActual || 1;
+    const totalIngresos = getIngresosEnMoneda(moneda, tipoCambio);
+    const totalEgresos = getEgresosEnMoneda(moneda, tipoCambio);
+    const balance = totalIngresos - totalEgresos;
+    setCardValue(ingresosCardEl, totalIngresos.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}));
+    setCardValue(egresosCardEl, totalEgresos.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}));
+    setCardValue(balanceGeneralCardEl, balance.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2}));
+    setCardLabel(monedaLabelIngresosEl, moneda);
+    setCardLabel(monedaLabelEgresosEl, moneda);
+    setCardLabel(monedaLabelBalanceEl, moneda);
+    setClientesCard(getTotalClientes());
+}
+
+// funcion para renderizar los ultimos movimientos
+function renderUltimosRegistros() {
+    const movimientos = getUltimosMovimientos(5);
+    if (!tbodyMovimientosEl) return;
+    tbodyMovimientosEl.innerHTML = '';
     movimientos.forEach(mov => {
-        const cliente = clientesStore.getById(mov.cliente);
-        tbody.innerHTML += `
+        const cliente = getClientePorId(mov.cliente);
+        tbodyMovimientosEl.innerHTML += `
             <tr class="hover:bg-gray-50">
                 <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.fecha} ${mov.hora || ''}</td>
                 <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">${cliente ? cliente.nombre : '(Sin cliente)'}</td>
@@ -74,9 +106,8 @@ function renderUltimosRegistros() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    renderDashboardResumen();
-    renderUltimosRegistros();
+// funcion para setear la reactividad
+function setUpReactivity() {
     clientesStore.subscribe(renderDashboardResumen);
     ingresosStore.subscribe(() => {
         renderDashboardResumen();
@@ -86,35 +117,31 @@ document.addEventListener('DOMContentLoaded', function() {
         renderDashboardResumen();
         renderUltimosRegistros();
     });
-    actualizarTipoCambio();
-    setInterval(actualizarTipoCambio, 5 * 60 * 1000);
-    // Selector de moneda
-    const selectMoneda = document.getElementById('moneda-dashboard');
-    if (selectMoneda) {
-        selectMoneda.value = window.monedaDashboard || 'PEN';
-        selectMoneda.onchange = function() {
+    document.addEventListener('tipoCambioActualizado', renderDashboardResumen);
+    document.addEventListener('monedaDashboardCambiada', renderDashboardResumen);
+}
+
+// funcion para setear el selector de moneda
+function setUpMonedaSelector() {
+    if (selectMonedaEl) {
+        selectMonedaEl.value = window.monedaDashboard || 'PEN';
+        selectMonedaEl.onchange = function() {
             window.setMonedaDashboard(this.value);
         };
     }
-});
-document.addEventListener('tipoCambioActualizado', renderDashboardResumen);
-document.addEventListener('monedaDashboardCambiada', renderDashboardResumen);
+}
 
-// --- GRAFICA CIRCULAR CLIENTES POR TIPO DE DOCUMENTO ---
-document.addEventListener('DOMContentLoaded', function() {
-    // Esperar a que store.js cargue y exponga clientesStore
+// funcion para renderizar la grafica de clientes por tipo de documento
+function renderGraficaClientesTipoDoc() {
     setTimeout(function() {
         let clientes = [];
         if (typeof clientesStore !== 'undefined' && clientesStore.getState) {
             clientes = clientesStore.getState();
         }
-        // Mostrar el total de clientes
-        document.getElementById('totalClientes').textContent = clientes.length;
-
+        setCardValue(totalClientesEl, clientes.length);
         const totalRuc = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'ruc').length;
         const totalDni = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'dni').length;
-        const totalOtros = clientes.length - totalRuc - totalDni;
-        const ctx = document.getElementById('clientesTipoDocChart').getContext('2d');
+        const ctx = clientesTipoDocChartEl.getContext('2d');
         new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -147,5 +174,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }
         });
-    }, 200); // Espera breve por si el store se inicializa
+    }, 200);
+}
+
+// ==== MAIN ENTRY ====
+document.addEventListener('DOMContentLoaded', function() {
+    renderDashboardResumen();
+    renderUltimosRegistros();
+    setUpReactivity();
+    setUpTipoCambioAutoUpdate();
+    setUpMonedaSelector();
+    renderGraficaClientesTipoDoc();
 });

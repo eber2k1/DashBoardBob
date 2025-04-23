@@ -83,3 +83,13 @@ async function actualizarTipoCambio() {
         if (span) span.textContent = 'Error';
     }
 }
+
+// funcion para setear el tipo de cambio
+function setUpTipoCambioAutoUpdate() {
+    actualizarTipoCambio();
+    setInterval(actualizarTipoCambio, 5 * 60 * 1000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setUpTipoCambioAutoUpdate();
+});
