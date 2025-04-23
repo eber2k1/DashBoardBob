@@ -10,16 +10,16 @@
         /* Mejoras visuales para tablas */
         .table-balance th,
         .table-balance td {
-            padding: 0.75rem 1rem;
+            padding: 0.85rem 1.2rem;
             border-bottom: 1px solid #e5e7eb;
             vertical-align: middle;
         }
         .table-balance th {
             background: #f3f4f6;
             color: #374151;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+            font-size: 1rem;
             text-transform: uppercase;
         }
         .table-balance tr:hover td {
@@ -28,7 +28,7 @@
         }
         .table-balance td {
             background: #fff;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
         .table-balance .font-semibold {
             font-weight: 700;
@@ -38,11 +38,11 @@
             color: #2563eb;
             text-decoration: underline;
             cursor: pointer;
-            font-weight: 500;
+            font-weight: 600;
             border: none;
             background: none;
-            padding: 0.25rem 0.5rem;
-            border-radius: 0.25rem;
+            padding: 0.35rem 0.7rem;
+            border-radius: 0.3rem;
             transition: background 0.2s, color 0.2s;
         }
         .table-balance .ver-detalle-btn:hover {
@@ -50,8 +50,22 @@
             color: #1d4ed8;
         }
         .table-balance .text-xs {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: #64748b;
+        }
+        /* NUEVO: Mejoras visuales balance */
+        .card-balance {
+            border-radius: 1.2rem;
+            box-shadow: 0 4px 24px #0001;
+            border: 1px solid #e5e7eb;
+        }
+        .modal-balance {
+            border-radius: 1.2rem;
+            box-shadow: 0 8px 32px #0003;
+        }
+        .modal-balance h2 {
+            color: #2c9494;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -127,28 +141,30 @@
     </header>
 
     <!-- Cuerpo de la app -->
-    <main class="flex-1 overflow-y-auto p-4 bg-gray-100">
-        <div class="max-w-6xl mx-auto">
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
-                <h2 class="text-2xl font-bold text-[#2c9494] mb-4">Balance por Cliente</h2>
+    <main class="flex-1 overflow-y-auto p-4 bg-gradient-to-br from-gray-100 to-[#e6f5f5]">
+        <div class="w-full max-w-6xl mx-auto">
+            <div class="bg-white card-balance p-6 md:p-8 mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-[#2c9494] flex items-center gap-2">
+                    <i class="fa-solid fa-chart-column"></i> Balance por Cliente
+                </h2>
                 <!-- Filtros de búsqueda -->
                 <div class="flex flex-col md:flex-row md:items-center gap-4 mb-6">
-                    <select id="filtro-cliente" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1 w-full md:w-64">
+                    <select id="filtro-cliente" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-2 w-full md:w-64 shadow-sm">
                         <option value="">Todos los clientes</option>
                     </select>
-                    <input id="filtro-fecha-inicio" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Desde">
-                    <input id="filtro-fecha-fin" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Hasta">
-                    <button id="limpiar-filtros" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-1 rounded">Limpiar</button>
+                    <input id="filtro-fecha-inicio" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-2 shadow-sm" placeholder="Desde">
+                    <input id="filtro-fecha-fin" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-2 shadow-sm" placeholder="Hasta">
+                    <button id="limpiar-filtros" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded shadow-sm transition">Limpiar</button>
                 </div>
-                <div class="flex gap-2 items-center mb-2">
+                <div class="flex gap-2 items-center mb-4">
                     <label for="moneda-balance" class="text-sm font-medium">Ver montos en:</label>
-                    <select id="moneda-balance" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-indigo-200">
+                    <select id="moneda-balance" class="border border-gray-300 rounded px-2 py-2 text-sm focus:ring-2 focus:ring-indigo-200 shadow-sm">
                         <option value="PEN">Soles (PEN)</option>
                         <option value="USD">Dólares (USD)</option>
                     </select>
                 </div>
                 <!-- Tabla de balances -->
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
                     <table class="min-w-full divide-y divide-gray-200 table-balance">
                         <thead class="bg-gray-50">
                             <tr>
@@ -165,12 +181,12 @@
             </div>
             <!-- Modal de detalle por cliente -->
             <div id="detalle-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" role="dialog" aria-modal="true">
-                <div class="bg-white rounded-lg shadow-lg max-w-2xl w-full p-6 relative">
+                <div class="bg-white modal-balance max-w-2xl w-full p-6 relative">
                     <button id="close-detalle-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
                         <i class="fa-solid fa-times"></i>
                     </button>
                     <h2 class="text-xl font-semibold mb-4" id="modal-detalle-title">Detalle de Movimientos</h2>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto rounded-xl border border-gray-100 shadow-sm">
                         <table class="min-w-full divide-y divide-gray-200">
                             <thead class="bg-gray-50">
                                 <tr>

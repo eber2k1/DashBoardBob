@@ -59,7 +59,7 @@ function renderClientes(clientes) {
                 <td class="px-6 py-4 whitespace-nowrap text-gray-500">${cliente.correo}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-gray-500">${cliente.tipo_doc}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-gray-500">${cliente.numdoc}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500">${cliente.observaciones || ''}</td>
+                <td class="px-6 py-4 break-words max-w-xs text-gray-500" style="white-space:pre-line;">${cliente.observaciones ? cliente.observaciones : ''}</td>
                 <td class="px-6 py-4 whitespace-nowrap text-right">
                     <button class='text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2' aria-label='Editar cliente' onclick='editarCliente(${cliente.id})'><i class='fa-solid fa-pen'></i></button>
                     <button class='text-red-500 hover:text-red-700 focus:outline-none rounded' aria-label='Eliminar cliente' onclick='eliminarCliente(${cliente.id})'><i class='fa-solid fa-trash'></i></button>

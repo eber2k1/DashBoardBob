@@ -35,12 +35,12 @@ function defineRenderBalances() {
             });
             const balance = totalIngresos - totalEgresos;
             tbody.innerHTML += `
-                <tr class="hover:bg-gray-50 transition">
-                    <td class="px-4 py-2">${cliente.nombre}</td>
-                    <td class="px-4 py-2 text-right">${Number(totalIngresos).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
-                    <td class="px-4 py-2 text-right">${Number(totalEgresos).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
-                    <td class="px-4 py-2 text-right font-semibold">${Number(balance).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
-                    <td class="px-4 py-2 text-center">
+                <tr class="hover:bg-[#e6f5f5] transition rounded-xl shadow-sm">
+                    <td class="px-6 py-4 whitespace-nowrap font-semibold text-[#2c9494]">${cliente.nombre}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-green-600 font-bold">${Number(totalIngresos).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right text-red-500 font-bold">${Number(totalEgresos).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-right font-semibold ${balance >= 0 ? 'text-[#2c9494]' : 'text-red-600'}">${Number(balance).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})} <span class="text-xs">${moneda}</span></td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
                         <button class="text-blue-600 hover:underline ver-detalle-btn" data-id="${cliente.id}">Ver detalle</button>
                     </td>
                 </tr>
@@ -71,14 +71,14 @@ function defineMostrarDetalleCliente() {
         tbody.innerHTML = '';
         movimientos.forEach(mov => {
             tbody.innerHTML += `
-                <tr>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.fecha} ${mov.hora || ''}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.tipo}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.medio || ''}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.banco || ''}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.moneda || ''}</td>
-                    <td class="px-4 py-2 whitespace-nowrap ${mov.tipo === 'Ingreso' ? 'text-green-600' : 'text-red-600'} font-bold">${Number(mov.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                    <td class="px-4 py-2 whitespace-nowrap">${mov.concepto || ''}</td>
+                <tr class="hover:bg-[#e6f5f5] transition">
+                    <td class="px-5 py-3 whitespace-nowrap font-medium">${mov.fecha} ${mov.hora || ''}</td>
+                    <td class="px-5 py-3 whitespace-nowrap">${mov.tipo}</td>
+                    <td class="px-5 py-3 whitespace-nowrap">${mov.medio || ''}</td>
+                    <td class="px-5 py-3 whitespace-nowrap">${mov.banco || ''}</td>
+                    <td class="px-5 py-3 whitespace-nowrap">${mov.moneda || ''}</td>
+                    <td class="px-5 py-3 whitespace-nowrap ${mov.tipo === 'Ingreso' ? 'text-green-600' : 'text-red-600'} font-bold">${Number(mov.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                    <td class="px-5 py-3 whitespace-pre-line max-w-xs break-words text-gray-500">${mov.concepto || ''}</td>
                 </tr>
             `;
         });

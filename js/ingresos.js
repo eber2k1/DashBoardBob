@@ -34,7 +34,7 @@ function renderIngresos() {
                 <td class="px-4 py-2 whitespace-nowrap">${ingreso.banco}</td>
                 <td class="px-4 py-2 whitespace-nowrap">${ingreso.moneda}</td>
                 <td class="px-4 py-2 whitespace-nowrap font-bold text-right text-green-500">${Number(ingreso.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                <td class="px-4 py-2 whitespace-nowrap">${ingreso.concepto}</td>
+                <td class="px-6 py-4 break-words max-w-xs text-gray-500" style="white-space:pre-line;">${ingreso.concepto}</td>
                 <td class="px-4 py-2 whitespace-nowrap text-right">
                     <button class="text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2" aria-label="Editar ingreso" onclick="editarIngreso(${ingreso.id})"><i class="fa-solid fa-pen"></i></button>
                     <button class="text-red-500 hover:text-red-700 focus:outline-none rounded" aria-label="Eliminar ingreso" onclick="eliminarIngreso(${ingreso.id})"><i class="fa-solid fa-trash"></i></button>
@@ -178,7 +178,7 @@ function aplicarFiltrosIngresos() {
                 <td class="px-4 py-2 whitespace-nowrap">${ingreso.banco}</td>
                 <td class="px-4 py-2 whitespace-nowrap">${ingreso.moneda}</td>
                 <td class="px-4 py-2 whitespace-nowrap text-right font-bold text-green-500">${Number(ingreso.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                <td class="px-4 py-2 whitespace-nowrap">${ingreso.concepto}</td>
+                <td class="px-6 py-4 break-words max-w-xs text-gray-500" style="white-space:pre-line;">${ingreso.concepto}</td>
                 <td class="px-4 py-2 whitespace-nowrap text-right">
                     <button class="text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2" aria-label="Editar ingreso" onclick="editarIngreso(${ingreso.id})"><i class="fa-solid fa-pen"></i></button>
                     <button class="text-red-500 hover:text-red-700 focus:outline-none rounded" aria-label="Eliminar ingreso" onclick="eliminarIngreso(${ingreso.id})"><i class="fa-solid fa-trash"></i></button>

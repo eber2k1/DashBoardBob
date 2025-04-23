@@ -13,6 +13,8 @@ const selectMonedaEl = document.querySelector('#moneda-dashboard');
 const totalClientesEl = document.querySelector('#totalClientes');
 const clientesTipoDocChartEl = document.querySelector('#clientesTipoDocChart');
 
+
+
 // === DATA HELPERS ===
 
 // funcion para obtener los ingresos en una moneda dada
@@ -119,7 +121,7 @@ function setUpReactivity() {
     });
     document.addEventListener('tipoCambioActualizado', renderDashboardResumen);
     document.addEventListener('monedaDashboardCambiada', renderDashboardResumen);
-}
+}   
 
 // funcion para setear el selector de moneda
 function setUpMonedaSelector() {
@@ -132,6 +134,7 @@ function setUpMonedaSelector() {
 }
 
 // funcion para renderizar la grafica de clientes por tipo de documento
+let clientesTipoDocChart = null;
 function renderGraficaClientesTipoDoc() {
     setTimeout(function() {
         let clientes = [];
@@ -142,7 +145,11 @@ function renderGraficaClientesTipoDoc() {
         const totalRuc = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'ruc').length;
         const totalDni = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'dni').length;
         const ctx = clientesTipoDocChartEl.getContext('2d');
-        new Chart(ctx, {
+        // Destruir la gráfica anterior si existe
+        if (clientesTipoDocChart) {
+            clientesTipoDocChart.destroy();
+        }
+        clientesTipoDocChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
                 labels: ['RUC', 'DNI'],
@@ -174,7 +181,7 @@ function renderGraficaClientesTipoDoc() {
                 }
             }
         });
-    }, 200);
+    }, 0);
 }
 
 // ==== MAIN ENTRY ====
@@ -186,3 +193,131 @@ document.addEventListener('DOMContentLoaded', function() {
     setUpMonedaSelector();
     renderGraficaClientesTipoDoc();
 });
+
+
+
+function importarTransaccionesUnificadas(event) {
+    const archivo = event.target.files[0];
+    const lector = new FileReader();
+
+    lector.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, { type: 'array' });
+        const hoja = workbook.Sheets['Transacciones'];
+        const registros = XLSX.utils.sheet_to_json(hoja || []);
+
+        const nuevosClientes = [];
+        const nuevosIngresos = [];
+        const nuevosEgresos = [];
+
+        registros.forEach(reg => {
+            if (!reg.correo || !reg.tipo || !reg.importe) return; // Validación básica
+
+            let cliente = nuevosClientes.find(c => c.correo === reg.correo);
+            let clienteId;
+
+            if (cliente) {
+                // Actualizar cliente si ya existe
+                Object.assign(cliente, {
+                    nombre: reg.nombre_razon,
+                    tipo_doc: reg.dni_ruc,
+                    numdoc: reg.numdoc,
+                    observaciones: reg.observaciones
+                });
+                clienteId = cliente.id;
+            } else {
+                // Crear nuevo cliente
+                clienteId = nuevosClientes.length + 1;
+                cliente = {
+                    id: clienteId,
+                    correo: reg.correo,
+                    nombre: reg.nombre_razon,
+                    tipo_doc: reg.dni_ruc,
+                    numdoc: reg.numdoc,
+                    observaciones: reg.observaciones
+                };
+                nuevosClientes.push(cliente);
+            }
+
+            const transaccion = {
+                id: (reg.tipo === 'ingreso' ? nuevosIngresos : nuevosEgresos).length + 1,
+                fecha: reg.fecha,
+                hora: reg.hora,
+                cliente: clienteId,
+                medio: reg.medio,
+                banco: reg.banco,
+                moneda: reg.moneda,
+                importe: Number(reg.importe),
+                concepto: reg.concepto
+            };
+
+            if (reg.tipo.toLowerCase() === 'ingreso') {
+                nuevosIngresos.push(transaccion);
+            } else if (reg.tipo.toLowerCase() === 'egreso') {
+                nuevosEgresos.push(transaccion);
+            }
+        });
+
+        clientesStore.setState(nuevosClientes);
+        ingresosStore.setState(nuevosIngresos);
+        egresosStore.setState(nuevosEgresos);
+
+        // Renderiza la gráfica y otros componentes después de actualizar los stores
+        setTimeout(() => {
+            renderGraficaClientesTipoDoc();
+            renderDashboardResumen && renderDashboardResumen();
+            renderUltimosRegistros && renderUltimosRegistros();
+        }, 0);
+
+        alert('Transacciones importadas correctamente.');
+    };
+
+    lector.readAsArrayBuffer(archivo);
+}
+
+// === EXPORTAR ===
+function exportarTransaccionesUnificadas() {
+    const ingresos = ingresosStore.getState().map(i => {
+        const cliente = clientesStore.getById(i.cliente) || {};
+        return {
+            tipo: 'ingreso',
+            fecha: i.fecha,
+            hora: i.hora,
+            correo: cliente.correo || '',
+            nombre_razon: cliente.nombre || cliente.razon || '',
+            dni_ruc: cliente.dni || cliente.ruc || '',
+            numdoc: cliente.numdoc || '',
+            observaciones: cliente.observaciones || '',
+            medio: i.medio,
+            banco: i.banco,
+            moneda: i.moneda,
+            importe: i.importe,
+            concepto: i.concepto
+        };
+    });
+
+    const egresos = egresosStore.getState().map(e => {
+        const cliente = clientesStore.getById(e.cliente) || {};
+        return {
+            tipo: 'egreso',
+            fecha: e.fecha,
+            hora: e.hora,
+            correo: cliente.correo || '',
+            nombre_razon: cliente.nombre || cliente.razon || '',
+            dni_ruc: cliente.dni || cliente.ruc || '',
+            numdoc: cliente.numdoc || '',
+            observaciones: cliente.observaciones || '',
+            medio: e.medio,
+            banco: e.banco,
+            moneda: e.moneda,
+            importe: e.importe,
+            concepto: e.concepto
+        };
+    });
+
+    const registros = [...ingresos, ...egresos];
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(registros);
+    XLSX.utils.book_append_sheet(wb, ws, 'Transacciones');
+    XLSX.writeFile(wb, 'bob_transacciones.xlsx');
+}

@@ -35,7 +35,7 @@ function renderEgresos() {
                 <td class="px-4 py-2 whitespace-nowrap">${egreso.banco}</td>
                 <td class="px-4 py-2 whitespace-nowrap">${egreso.moneda}</td>
                 <td class="px-4 py-2 whitespace-nowrap font-bold text-right text-red-500">${Number(egreso.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                <td class="px-4 py-2 whitespace-nowrap">${egreso.concepto}</td>
+                <td class="px-6 py-4 break-words max-w-xs text-gray-500" style="white-space:pre-line;">${egreso.concepto}</td>
                 <td class="px-4 py-2 whitespace-nowrap text-right">
                     <button class="text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2" aria-label="Editar egreso" onclick="editarEgreso(${egreso.id})"><i class="fa-solid fa-pen"></i></button>
                     <button class="text-red-500 hover:text-red-700 focus:outline-none rounded" aria-label="Eliminar egreso" onclick="eliminarEgreso(${egreso.id})"><i class="fa-solid fa-trash"></i></button>
@@ -171,7 +171,7 @@ function aplicarFiltrosEgresos() {
                 <td class="px-4 py-2 whitespace-nowrap">${egreso.banco}</td>
                 <td class="px-4 py-2 whitespace-nowrap">${egreso.moneda}</td>
                 <td class="px-4 py-2 whitespace-nowrap font-bold text-right text-red-500">${Number(egreso.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
-                <td class="px-4 py-2 whitespace-nowrap">${egreso.concepto}</td>
+                <td class="px-6 py-4 break-words max-w-xs text-gray-500" style="white-space:pre-line;">${egreso.concepto}</td>
                 <td class="px-4 py-2 whitespace-nowrap text-right">
                     <button class="text-[#2c9494] hover:text-[#f3ab13] focus:outline-none rounded mr-2" aria-label="Editar egreso" onclick="editarEgreso(${egreso.id})"><i class="fa-solid fa-pen"></i></button>
                     <button class="text-red-500 hover:text-red-700 focus:outline-none rounded" aria-label="Eliminar egreso" onclick="eliminarEgreso(${egreso.id})"><i class="fa-solid fa-trash"></i></button>

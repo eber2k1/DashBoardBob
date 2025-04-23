@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-<body class="bg-gray-50 font-sans text-gray-800">
+<body class="bg-gray-100 font-sans text-gray-800">
     <!-- Menu lateral -->
     <aside id="sidebar"
         class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
@@ -60,164 +60,121 @@
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>
 
     <!-- Contenido principal -->
-    <header class="bg-white shadow-sm p-4 flex items-center justify-between" role="banner">
-        <div class="flex items-center">
-            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded"
-                aria-label="Abrir menú" tabindex="0">
-                <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
-            </button>
-            <h1 class="text-xl text-[#2c9494] font-bold">Bob Dashboard</h1>
-        </div>
-        <div class="flex items-center gap-4">
-            <span id="tipo-cambio" class="text-sm bg-indigo-50 border border-indigo-200 rounded px-3 py-1 font-semibold text-indigo-800 flex items-center" title="Tipo de cambio actualizado en tiempo real">
-                <i class="fa-solid fa-dollar-sign mr-1"></i>
-                <span id="valor-tipo-cambio">Cargando...</span>
-                <span class="ml-1">USD/PEN</span>
-            </span>
-            <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8">
-        </div>
-    </header>
+    <main class="flex-1 min-h-screen flex flex-col items-center p-0 md:p-0 bg-gradient-to-br from-gray-100 to-[#e6f5f5]">
+        <header class="w-full max-w-8xl mx-auto bg-white shadow-sm p-4 flex items-center justify-between rounded-t-xl sticky top-0 z-30" role="banner">
+            <div class="flex items-center">
+                <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded" aria-label="Abrir menú" tabindex="0">
+                    <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
+                </button>
+                <h1 class="text-2xl md:text-3xl text-[#2c9494] font-extrabold tracking-tight">Bob Dashboard</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="tipo-cambio" class="text-sm bg-indigo-50 border border-indigo-200 rounded px-3 py-1 font-semibold text-indigo-800 flex items-center shadow-sm" title="Tipo de cambio actualizado en tiempo real">
+                    <i class="fa-solid fa-dollar-sign mr-1"></i>
+                    <span id="valor-tipo-cambio">Cargando...</span>
+                    <span class="ml-1">USD/PEN</span>
+                </span>
+                <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-10 drop-shadow">
+            </div>
+        </header>
 
-    <!-- Cuerpo de la app -->
-    <div class="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-100">
-        <div class="max-w-4xl mx-auto">
+        <section class="w-full max-w-7xl mx-auto flex-1 flex flex-col gap-8 p-4 md:p-8">
             <!-- Panel de resumen -->
-                <div class="bg-white rounded-lg shadow p-4 md:p-6 mb-6">
-                    <h2 class="text-xl md:text-2xl font-bold mb-2 md:mb-4">Bienvenido a Bob Dashboard</h2>
-                    <p class="text-gray-600 text-sm md:text-base">Aquí puedes ver el resumen de tus actividades recientes.</p>
-                    
-                    <!-- Cards responsive -->
-                    <div class="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="bg-blue-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-blue-800 text-sm md:text-base">Clientes registrados</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2">123</p>
-                        </div>
-                        <div class="bg-green-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-green-800 text-sm md:text-base">Ingresos (<span id="moneda-label-ingresos">PEN</span>)</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2" id="ingresos-card">0.00</p>
-                        </div>
-                        <div class="bg-yellow-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-yellow-800 text-sm md:text-base">Egresos (<span id="moneda-label-egresos">PEN</span>)</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2" id="egresos-card">0.00</p>
-                        </div>
-                        <div class="bg-indigo-50 p-4 rounded-lg">
-                            <h3 class="font-semibold text-indigo-800 text-sm md:text-base">Balance (<span id="moneda-label-balance">PEN</span>)</h3>
-                            <p class="text-xl md:text-2xl font-bold mt-2" id="balance-general-card">0.00</p>
-                        </div>
-                    </div>
-                    <div class="mt-4 flex gap-2 items-center">
-                        <label for="moneda-dashboard" class="text-sm font-medium">Ver montos en:</label>
-                        <select id="moneda-dashboard" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-indigo-200">
-                            <option value="PEN">Soles (PEN)</option>
-                            <option value="USD">Dólares (USD)</option>
-                        </select>
+            <section aria-labelledby="dashboard-summary-title" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
+                <header class="mb-6">
+                    <h2 id="dashboard-summary-title" class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-[#2c9494] flex items-center gap-2">
+                        <i class="fa-solid fa-gauge-high"></i> Bienvenido a Bob Dashboard
+                    </h2>
+                    <p class="text-gray-600 text-base md:text-lg">Aquí puedes ver el resumen de tus actividades recientes.</p>
+                </header>
+                <!-- Cards responsive -->
+                <div class="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <article class="bg-blue-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-clientes">
+                        <h3 id="card-clientes" class="font-semibold text-blue-800 text-base md:text-lg">Clientes registrados</h3>
+                        <p class="text-2xl md:text-3xl font-bold mt-2" id="totalClientes">123</p>
+                    </article>
+                    <article class="bg-green-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-ingresos">
+                        <h3 id="card-ingresos" class="font-semibold text-green-800 text-base md:text-lg">Ingresos</h3>
+                        <p class="text-2xl md:text-3xl font-bold mt-2" id="ingresos-card">0.00</p>
+                        <span class="text-xs text-green-700 mt-1" id="moneda-label-ingresos">PEN</span>
+                    </article>
+                    <article class="bg-red-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-egresos">
+                        <h3 id="card-egresos" class="font-semibold text-red-800 text-base md:text-lg">Egresos</h3>
+                        <p class="text-2xl md:text-3xl font-bold mt-2" id="egresos-card">0.00</p>
+                        <span class="text-xs text-red-700 mt-1" id="moneda-label-egresos">PEN</span>
+                    </article>
+                    <article class="bg-yellow-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-balance">
+                        <h3 id="card-balance" class="font-semibold text-yellow-800 text-base md:text-lg">Balance general</h3>
+                        <p class="text-2xl md:text-3xl font-bold mt-2" id="balance-general-card">0.00</p>
+                        <span class="text-xs text-yellow-700 mt-1" id="moneda-label-balance">PEN</span>
+                    </article>
+                </div>
+                <div class="mt-6 flex gap-4 items-center">
+                    <label for="moneda-dashboard" class="text-sm font-medium text-gray-700">Ver montos en:</label>
+                    <select id="moneda-dashboard" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2c9494] bg-white text-gray-700">
+                        <option value="PEN">Soles (PEN)</option>
+                        <option value="USD">Dólares (USD)</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- GRAFICA DE CLIENTES POR TIPO DE DOCUMENTO -->
+            <section aria-labelledby="clientes-tipo-doc-title" class="my-10">
+                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                    <header class="mb-4">
+                        <h2 id="clientes-tipo-doc-title" class="text-xl md:text-2xl font-bold text-[#2c9494] flex items-center gap-2">
+                            <i class="fa-solid fa-address-book"></i> Clientes por Tipo de Documento
+                        </h2>
+                        <p class="text-[#2c9494] text-lg font-semibold mb-1" id="totalClientes">8</p>
+                        <span class="text-sm text-gray-500">Total de clientes</span>
+                    </header>
+                    <div class="flex justify-center items-center w-full">
+                        <canvas id="clientesTipoDocChart" width="280" height="280" class="mx-auto"></canvas>
                     </div>
                 </div>
+            </section>
 
-                <!-- GRAFICA DE CLIENTES POR TIPO DE DOCUMENTO -->
-                <section class="my-8">
-                    <div class="bg-white rounded-lg shadow-md p-6 flex flex-col items-center">
-                        <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center">
-                            <i class="fa-solid fa-chart-pie mr-2 text-[#2c9494]"></i>
-                            Clientes por Tipo de Documento
-                        </h2>
-                        <div class="mb-4 text-center">
-                            <span id="totalClientes" class="inline-block text-2xl font-bold text-[#2c9494]"></span>
-                            <span class="block text-sm text-gray-500">Total de clientes</span>
-                        </div>
-                        <canvas id="clientesTipoDocChart" width="280" height="280"></canvas>
-                    </div>
-                </section>
-
-                <!-- Tabla de últimos registros -->
-                <div class="bg-white rounded-lg shadow">
-                    <div class="p-4 md:p-6 border-b border-gray-200">
-                        <h2 class="text-lg md:text-xl font-semibold">Últimos 5 registros</h2>
+            <!-- Tabla de últimos registros -->
+            <section aria-labelledby="ultimos-registros-title" class="bg-white rounded-xl shadow-lg">
+                <header class="p-6 border-b border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <div>
+                        <h2 id="ultimos-registros-title" class="text-lg md:text-xl font-semibold text-[#2c9494]">Últimos 5 registros</h2>
                         <p class="text-gray-500 text-sm">Ingresos y egresos recientes de clientes</p>
                     </div>
-                    
-                    <!-- Contenedor con scroll horizontal para dispositivos pequeños -->
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
-                                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
-                                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto</th>
-                                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
-                                    <th scope="col" class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Registro 1 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">17/04/2025</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">María González</td>
-                                    <td class="px-4 py-3 text-sm">Compra lote #A-123</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ingreso</span>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-green-600">+$2,500</td>
-                                </tr>
-                                
-                                <!-- Registro 2 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">16/04/2025</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">Carlos Ramírez</td>
-                                    <td class="px-4 py-3 text-sm">Depósito anticipo</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ingreso</span>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-green-600">+$1,800</td>
-                                </tr>
-                                
-                                <!-- Registro 3 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">16/04/2025</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">Ana Martínez</td>
-                                    <td class="px-4 py-3 text-sm">Comisión vendedor</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Egreso</span>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-red-600">-$450</td>
-                                </tr>
-                                
-                                <!-- Registro 4 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">15/04/2025</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">Roberto Sánchez</td>
-                                    <td class="px-4 py-3 text-sm">Subasta vehículo</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Ingreso</span>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-green-600">+$3,200</td>
-                                </tr>
-                                
-                                <!-- Registro 5 -->
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">14/04/2025</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">Laura Jiménez</td>
-                                    <td class="px-4 py-3 text-sm">Devolución adelanto</td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Egreso</span>
-                                    </td>
-                                    <td class="px-4 py-3 whitespace-nowrap text-sm font-medium text-red-600">-$750</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Botón para ver más registros -->
-                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6 rounded-b-lg">
-                        <a href="./registros.html" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#2c9494] hover:bg-[#238383] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c9494]">
-                            Ver todos los registros
-                        </a>
-                    </div>
+                    <a href="./registros.html" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#2c9494] hover:bg-[#238383] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c9494] transition">
+                        Ver todos los registros
+                    </a>
+                </header>
+                <div class="overflow-x-auto rounded-b-xl">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concepto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <!-- Aquí se renderizan los registros dinámicamente -->
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
+                <footer class="my-6 flex gap-2 justify-end">
+                    <button onclick="exportarTransaccionesUnificadas()" class="bg-[#2c9494] text-white px-4 py-2 rounded shadow hover:bg-[#238383] transition">
+                        Exportar Excel
+                    </button>
+                    <label class="bg-white border rounded shadow px-4 py-2 cursor-pointer hover:bg-gray-100 transition">
+                        <span class="text-[#2c9494] font-medium">Importar Excel</span>
+                        <input type="file" accept=".xlsx" onchange="importarTransaccionesUnificadas(event)" class="hidden">
+                    </label>
+                </footer>
+            </section>
+        </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/store.js"></script>
     <script src="js/index.js"></script>
