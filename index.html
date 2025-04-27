@@ -7,15 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
+<body class="bg-gray-50 font-sans text-gray-800">
     <!-- Menu lateral -->
     <aside id="sidebar"
-        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out border-r border-gray-200"
         aria-label="Menú principal">
         <!-- Header del menu -->
         <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
-            <h2 class="text-xl font-bold">Menu</h2>
-            <button id="close-menu" class="focus:outline-none">
+            <h2 class="text-xl font-semibold">Menú</h2>
+            <button id="close-menu" class="focus:outline-none hover:bg-amber-100/20 w-8 rounded-full p-1 transition-colors">
                 <i class="fa-solid fa-times"></i>
             </button>
         </header>
@@ -23,31 +23,31 @@
         <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] bg-[#f3ab13]/10 font-semibold shadow-inner">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
@@ -63,7 +63,7 @@
     <main class="flex-1 min-h-screen flex flex-col items-center p-0 md:p-0 bg-gradient-to-br from-gray-100 to-[#e6f5f5]">
         <header class="w-full max-w-8xl mx-auto bg-white shadow-sm p-4 flex items-center justify-between rounded-t-xl sticky top-0 z-30" role="banner">
             <div class="flex items-center">
-                <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded" aria-label="Abrir menú" tabindex="0">
+                <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded bg-[#f3ab13]/10 p-2 hover:bg-[#ffe3a3] transition" aria-label="Abrir menú" tabindex="0">
                     <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
                 </button>
                 <h1 class="text-2xl md:text-3xl text-[#2c9494] font-extrabold tracking-tight">Bob Dashboard</h1>
@@ -82,28 +82,28 @@
             <!-- Panel de resumen -->
             <section aria-labelledby="dashboard-summary-title" class="bg-white rounded-xl shadow-lg p-6 md:p-8 mb-8">
                 <header class="mb-6">
-                    <h2 id="dashboard-summary-title" class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-[#2c9494] flex items-center gap-2">
+                    <h2 id="dashboard-summary-title" class="text-2xl md:text-3xl font-bold text-[#2c9494] mb-2 md:mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-gauge-high"></i> Bienvenido a Bob Dashboard
                     </h2>
                     <p class="text-gray-600 text-base md:text-lg">Aquí puedes ver el resumen de tus actividades recientes.</p>
                 </header>
                 <!-- Cards responsive -->
                 <div class="mt-6 md:mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <article class="bg-blue-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-clientes">
+                    <article class="bg-blue-50 p-6 rounded-xl flex flex-col items-center shadow-sm border-b border-blue-200" aria-labelledby="card-clientes">
                         <h3 id="card-clientes" class="font-semibold text-blue-800 text-base md:text-lg">Clientes registrados</h3>
                         <p class="text-2xl md:text-3xl font-bold mt-2" id="totalClientes">123</p>
                     </article>
-                    <article class="bg-green-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-ingresos">
+                    <article class="bg-green-50 p-6 rounded-xl flex flex-col items-center shadow-sm border-b border-green-200" aria-labelledby="card-ingresos">
                         <h3 id="card-ingresos" class="font-semibold text-green-800 text-base md:text-lg">Ingresos</h3>
                         <p class="text-2xl md:text-3xl font-bold mt-2" id="ingresos-card">0.00</p>
                         <span class="text-xs text-green-700 mt-1" id="moneda-label-ingresos">PEN</span>
                     </article>
-                    <article class="bg-red-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-egresos">
+                    <article class="bg-red-50 p-6 rounded-xl flex flex-col items-center shadow-sm border-b border-red-200" aria-labelledby="card-egresos">
                         <h3 id="card-egresos" class="font-semibold text-red-800 text-base md:text-lg">Egresos</h3>
                         <p class="text-2xl md:text-3xl font-bold mt-2" id="egresos-card">0.00</p>
                         <span class="text-xs text-red-700 mt-1" id="moneda-label-egresos">PEN</span>
                     </article>
-                    <article class="bg-yellow-50 p-6 rounded-xl flex flex-col items-center shadow-sm" aria-labelledby="card-balance">
+                    <article class="bg-yellow-50 p-6 rounded-xl flex flex-col items-center shadow-sm border-b border-yellow-200" aria-labelledby="card-balance">
                         <h3 id="card-balance" class="font-semibold text-yellow-800 text-base md:text-lg">Balance general</h3>
                         <p class="text-2xl md:text-3xl font-bold mt-2" id="balance-general-card">0.00</p>
                         <span class="text-xs text-yellow-700 mt-1" id="moneda-label-balance">PEN</span>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="mt-6 flex gap-4 items-center">
                     <label for="moneda-dashboard" class="text-sm font-medium text-gray-700">Ver montos en:</label>
-                    <select id="moneda-dashboard" class="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2c9494] bg-white text-gray-700">
+                    <select id="moneda-dashboard" class="border border-gray-300 rounded-lg px-3 py-2 focus:outline-none bg-white text-gray-700">
                         <option value="PEN">Soles (PEN)</option>
                         <option value="USD">Dólares (USD)</option>
                     </select>
@@ -161,11 +161,11 @@
                         </tbody>
                     </table>
                 </div>
-                <footer class="my-6 flex gap-2 justify-end">
-                    <button onclick="exportarTransaccionesUnificadas()" class="bg-[#2c9494] text-white px-4 py-2 rounded shadow hover:bg-[#238383] transition">
+                <footer class="my-6 flex gap-2 justify-end pr-6">
+                    <button onclick="exportarTransaccionesUnificadas()" class="bg-[#2c9494] text-white px-4 py-2 rounded-md font-medium shadow hover:bg-[#238383] transition">
                         Exportar Excel
                     </button>
-                    <label class="bg-white border rounded shadow px-4 py-2 cursor-pointer hover:bg-gray-100 transition">
+                    <label class="bg-white border rounded-md shadow px-4 py-2 cursor-pointer hover:bg-gray-100 transition">
                         <span class="text-[#2c9494] font-medium">Importar Excel</span>
                         <input type="file" accept=".xlsx" onchange="importarTransaccionesUnificadas(event)" class="hidden">
                     </label>
