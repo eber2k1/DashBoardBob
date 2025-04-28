@@ -13,10 +13,7 @@ const selectMonedaEl = document.querySelector('#moneda-dashboard');
 const totalClientesEl = document.querySelector('#totalClientes');
 const clientesTipoDocChartEl = document.querySelector('#clientesTipoDocChart');
 
-
-
-// === DATA HELPERS ===
-
+// === SECCIÓN: TIPO DE CAMBIO DE MONEDA ===
 // funcion para obtener los ingresos en una moneda dada
 function getIngresosEnMoneda(moneda, tipoCambio) {
     return ingresosStore.getState().reduce((total, i) => {
@@ -38,8 +35,8 @@ function getTotalClientes() {
 
 // funcion para obtener los ultimos movimientos
 function getUltimosMovimientos(n = 5) {
-    const ingresos = ingresosStore.getState().map(i => ({...i, tipo: 'Ingreso'}));
-    const egresos = egresosStore.getState().map(e => ({...e, tipo: 'Egreso'}));
+    const ingresos = ingresosStore.getState()
+    const egresos = egresosStore.getState()
     return [...ingresos, ...egresos]
         .sort((a, b) => {
             const fechaA = a.fecha + ' ' + (a.hora || '00:00');
@@ -56,21 +53,19 @@ function getClientePorId(id) {
 
 // ==== DOM HELPERS ====
 
-// funcion para setear un valor en un elemento
 function setCardValue(element, value) {
     if (element) element.textContent = value;
 }
 
-// funcion para setear un label en un elemento
 function setCardLabel(element, value) {
     if (element) element.textContent = value;
 }
 
-// funcion para setear el total de clientes
 function setClientesCard(value) {
     if (clientesCardEl) clientesCardEl.textContent = value;
 }
 
+// === SECCIÓN: DATOS GENERALES ===
 // funcion para renderizar el dashboard resumen
 function renderDashboardResumen() {
     const moneda = window.monedaDashboard || 'PEN';
@@ -87,7 +82,7 @@ function renderDashboardResumen() {
     setClientesCard(getTotalClientes());
 }
 
-// funcion para renderizar los ultimos movimientos
+// === SECCIÓN: MOSTRAR ÚLTIMOS 5 REGISTROS ===
 function renderUltimosRegistros() {
     const movimientos = getUltimosMovimientos(5);
     if (!tbodyMovimientosEl) return;
@@ -97,18 +92,16 @@ function renderUltimosRegistros() {
         tbodyMovimientosEl.innerHTML += `
             <tr class="hover:bg-gray-50">
                 <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.fecha} ${mov.hora || ''}</td>
-                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium">${cliente ? cliente.nombre : '(Sin cliente)'}</td>
-                <td class="px-4 py-3 text-sm">${mov.concepto || ''}</td>
-                <td class="px-4 py-3 whitespace-nowrap text-sm">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${mov.tipo === 'Ingreso' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">${mov.tipo}</span>
-                </td>
-                <td class="px-4 py-3 whitespace-nowrap text-sm font-medium ${mov.tipo === 'Ingreso' ? 'text-green-600' : 'text-yellow-600'}">${mov.tipo === 'Ingreso' ? '+' : '-'}${Number(mov.importe).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.tipo}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${cliente ? (cliente.nombre || cliente.razon || '') : ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.medio || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.moneda || ''}</td>
+                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">${mov.importe.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
             </tr>
         `;
     });
 }
 
-// funcion para setear la reactividad
 function setUpReactivity() {
     clientesStore.subscribe(renderDashboardResumen);
     ingresosStore.subscribe(() => {
@@ -121,9 +114,8 @@ function setUpReactivity() {
     });
     document.addEventListener('tipoCambioActualizado', renderDashboardResumen);
     document.addEventListener('monedaDashboardCambiada', renderDashboardResumen);
-}   
+}
 
-// funcion para setear el selector de moneda
 function setUpMonedaSelector() {
     if (selectMonedaEl) {
         selectMonedaEl.value = window.monedaDashboard || 'PEN';
@@ -133,7 +125,7 @@ function setUpMonedaSelector() {
     }
 }
 
-// funcion para renderizar la grafica de clientes por tipo de documento
+// === SECCIÓN: GRÁFICA CIRCULAR ===
 let clientesTipoDocChart = null;
 function renderGraficaClientesTipoDoc() {
     setTimeout(function() {
@@ -194,8 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
     renderGraficaClientesTipoDoc();
 });
 
-
-
+// === SECCIÓN: IMPORTACIÓN DE EXCEL ===
 function importarTransaccionesUnificadas(event) {
     const archivo = event.target.files[0];
     const lector = new FileReader();
@@ -275,7 +266,7 @@ function importarTransaccionesUnificadas(event) {
     lector.readAsArrayBuffer(archivo);
 }
 
-// === EXPORTAR ===
+// === SECCIÓN: EXPORTACIÓN DE EXCEL ===
 function exportarTransaccionesUnificadas() {
     const ingresos = ingresosStore.getState().map(i => {
         const cliente = clientesStore.getById(i.cliente) || {};
