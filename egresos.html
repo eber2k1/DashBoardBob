@@ -10,12 +10,12 @@
 <body class="bg-gray-50 font-sans text-gray-800">
     <!-- Menu lateral -->
     <aside id="sidebar"
-        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out border-r border-gray-200"
         aria-label="Menú principal">
         <!-- Header del menu -->
         <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
-            <h2 class="text-xl font-bold">Menu</h2>
-            <button id="close-menu" class="focus:outline-none">
+            <h2 class="text-xl font-semibold">Menú</h2>
+            <button id="close-menu" class="focus:outline-none hover:bg-amber-100/20 w-8 rounded-full p-1 transition-colors">
                 <i class="fa-solid fa-times"></i>
             </button>
         </header>
@@ -23,31 +23,31 @@
         <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] bg-[#f3ab13]/10 font-semibold shadow-inner">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
@@ -57,18 +57,18 @@
     </aside>
 
     <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-200" tabindex="-1" aria-hidden="true"></div>
 
     <!-- Contenido principal -->
     <header class="bg-white shadow-sm p-4 flex items-center justify-between" role="banner">
         <div class="flex items-center">
-            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded"
+            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded bg-[#f3ab13]/10 p-2 hover:bg-[#ffe3a3] transition"
                 aria-label="Abrir menú" tabindex="0">
                 <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
             </button>
-            <h1 class="text-xl text-[#2c9494] font-bold">Bob Dashboard</h1>
+            <h1 class="text-2xl md:text-3xl text-[#2c9494] font-extrabold tracking-tight">Bob Dashboard</h1>
         </div>
-        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8">
+        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-10 drop-shadow">
     </header>
 
         <!-- Cuerpo de la app -->
@@ -76,31 +76,31 @@
             <div class="max-w-6xl mx-auto">
                 <div class="bg-white rounded-lg shadow p-6 mb-6">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                        <h2 class="text-2xl font-bold text-[#2c9494]">Gestión de Egresos</h2>
+                        <h2 class="text-2xl md:text-3xl font-bold text-[#2c9494]"><i class="fa-solid fa-credit-card"></i> <span>Gestión de Egresos</span></h2>
                         <button id="nuevo-egreso-btn" class="bg-[#2c9494] hover:bg-[#f3ab13] text-white px-4 py-2 rounded-lg flex items-center focus:outline-none">
                             <i class="fa-solid fa-plus mr-2"></i> Nuevo Egreso
                         </button>
                     </div>
                     <!-- Filtros -->
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-3 mb-4">
-                        <input id="filtro-fecha" type="date" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Fecha">
-                        <select id="filtro-cliente" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                        <input id="filtro-fecha" type="date" class="border-gray-300 shadow rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1" placeholder="Fecha">
+                        <select id="filtro-cliente" class="border-gray-300 shadow rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
                             <option value="">Todos los clientes</option>
                         </select>
-                        <select id="filtro-medio" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                        <select id="filtro-medio" class="border-gray-300 shadow rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
                             <option value="">Todos los medios</option>
                             <option value="Transferencia">Transferencia</option>
                             <option value="Depósito">Depósito</option>
                             <option value="Efectivo">Efectivo</option>
                         </select>
-                        <select id="filtro-banco" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                        <select id="filtro-banco" class="border-gray-300 shadow rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
                             <option value="">Todos los bancos</option>
                             <option>BCP</option>
                             <option>Interbank</option>
                             <option>BBVA</option>
                             <option>Scotiabank</option>
                         </select>
-                        <select id="filtro-moneda" class="border-gray-300 rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
+                        <select id="filtro-moneda" class="border-gray-300 shadow rounded-md focus:ring-[#2c9494] focus:border-[#2c9494] px-2 py-1">
                             <option value="">Todas las monedas</option>
                             <option>PEN</option>
                             <option>USD</option>
@@ -129,26 +129,30 @@
             <!-- Modal de nuevo egreso -->
             <div id="egreso-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" role="dialog" aria-modal="true">
                 <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
-                    <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 focus:outline-none">
+                    <!-- Boton de cerrar el modal -->
+                    <button id="close-modal" class="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-colors duration-150 text-2xl">
                         <i class="fa-solid fa-times"></i>
                     </button>
-                    <h2 class="text-xl font-semibold mb-4" id="modal-egreso-title">Nuevo Egreso</h2>
+                    <h2 class="text-2xl font-bold mb-4" id="modal-egreso-title">
+                        <i class="fa-solid fa-credit-card text-[#2c9494]"></i> <span>Nuevo Egreso</span>
+                    </h2>
                     <form id="egreso-form" class="space-y-4">
                         <input type="hidden" id="egreso-id">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="egreso-fecha" class="block text-sm font-medium">Fecha</label>
-                                <input id="egreso-fecha" name="fecha" type="date" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <input id="egreso-fecha" name="fecha" type="date" required class="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                             </div>
                             <div>
                                 <label for="egreso-hora" class="block text-sm font-medium">Hora</label>
-                                <input id="egreso-hora" name="hora" type="time" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <input id="egreso-hora" name="hora" type="time" required class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                             </div>
                         </div>
                         <div>
                             <label for="egreso-cliente" class="block text-sm font-medium">Cliente</label>
                             <div class="relative">
-                                <input id="egreso-cliente-autocomplete" name="cliente_nombre" type="text" autocomplete="off" required class="mt-1 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] bg-gray-50 px-3 py-2" placeholder="Escribe el nombre del cliente">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fa-solid fa-user"></i></span>
+                                <input id="egreso-cliente-autocomplete" name="cliente_nombre" type="text" autocomplete="off" required class="mt-1  pl-10 pr-3 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] px-3 py-2" placeholder="Escribe el nombre del cliente">
                                 <input type="hidden" id="egreso-cliente" name="cliente">
                                 <ul id="egreso-autocomplete-list" class="absolute z-10 left-0 right-0 bg-white border border-gray-200 rounded-md mt-1 shadow-lg hidden max-h-40 overflow-y-auto"></ul>
                             </div>
@@ -156,7 +160,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="egreso-medio" class="block text-sm font-medium">Medio</label>
-                                <select id="egreso-medio" name="medio" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <select id="egreso-medio" name="medio" required class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                                     <option value="Transferencia">Transferencia</option>
                                     <option value="Depósito">Depósito</option>
                                     <option value="Efectivo">Efectivo</option>
@@ -164,7 +168,7 @@
                             </div>
                             <div>
                                 <label for="egreso-banco" class="block text-sm font-medium">Banco</label>
-                                <select id="egreso-banco" name="banco" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <select id="egreso-banco" name="banco" required class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                                     <option>BCP</option>
                                     <option>Interbank</option>
                                     <option>BBVA</option>
@@ -175,19 +179,19 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label for="egreso-moneda" class="block text-sm font-medium">Moneda</label>
-                                <select id="egreso-moneda" name="moneda" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <select id="egreso-moneda" name="moneda" required class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                                     <option>PEN</option>
                                     <option>USD</option>
                                 </select>
                             </div>
                             <div>
                                 <label for="egreso-importe" class="block text-sm font-medium">Importe</label>
-                                <input id="egreso-importe" name="importe" type="number" min="0" step="0.01" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                                <input id="egreso-importe" name="importe" type="number" min="0" step="0.01" required placeholder="100" class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                             </div>
                         </div>
                         <div>
                             <label for="egreso-concepto" class="block text-sm font-medium">Concepto</label>
-                            <input id="egreso-concepto" name="concepto" type="text" required class="mt-1 block w-full rounded-md border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494]">
+                            <input id="egreso-concepto" name="concepto" type="text" required placeholder="Opcional" class="mt-1 block w-full rounded-md border-gray-300 border border-gray-300 px-3 py-2 focus:ring-[#2c9494] focus:border-[#2c9494]">
                         </div>
                         <div class="flex justify-end mt-4">
                             <button type="submit" class="bg-[#2c9494] text-white px-5 py-2 rounded hover:bg-[#237878] transition">Guardar</button>

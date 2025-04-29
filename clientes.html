@@ -12,12 +12,12 @@
 <body class="bg-gray-50 font-sans text-gray-800 flex flex-col min-h-screen">
     <!-- Menu lateral -->
     <aside id="sidebar"
-        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out border-r border-gray-200"
         aria-label="Menú principal">
         <!-- Header del menu -->
         <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
-            <h2 class="text-xl font-bold">Menu</h2>
-            <button id="close-menu" class="focus:outline-none">
+            <h2 class="text-xl font-semibold">Menú</h2>
+            <button id="close-menu" class="focus:outline-none hover:bg-amber-100/20 w-8 rounded-full p-1 transition-colors">
                 <i class="fa-solid fa-times"></i>
             </button>
         </header>
@@ -25,31 +25,31 @@
         <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] bg-[#f3ab13]/10 font-semibold shadow-inner">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
@@ -59,18 +59,18 @@
     </aside>
 
     <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
-    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden transition-opacity duration-200" tabindex="-1" aria-hidden="true"></div>
 
     <!-- Contenido principal -->
     <header class="bg-white shadow-sm p-4 flex items-center justify-between" role="banner">
         <div class="flex items-center">
-            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded"
+            <button id="menu-btn" class="mr-4 focus:outline-none focus:ring-2 focus:ring-[#2c9494] rounded bg-[#f3ab13]/10 p-2 hover:bg-[#ffe3a3] transition"
                 aria-label="Abrir menú" tabindex="0">
                 <i class="fa-solid fa-bars fa-xl" aria-hidden="true"></i>
             </button>
-            <h1 class="text-xl text-[#2c9494] font-bold">Bob Dashboard</h1>
+            <h1 class="text-2xl md:text-3xl text-[#2c9494] font-extrabold tracking-tight">Bob Dashboard</h1>
         </div>
-        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-8" />
+        <img src="./assets/icons/bob-sm.png" alt="Logo Bob Dashboard" class="h-10 drop-shadow" />
     </header>
 
     <!-- Cuerpo de la app -->
@@ -81,8 +81,8 @@
                 class="bg-white px-4 py-5 sm:px-6 border-b border-gray-200 rounded-t-lg shadow-sm flex flex-wrap items-center justify-between gap-3"
                 aria-labelledby="clientes-title">
                 <div>
-                    <h2 class="text-lg md:text-xl font-semibold text-gray-900" id="clientes-title">
-                        Gestión de Clientes
+                    <h2 class="text-2xl md:text-3xl font-bold text-[#2c9494]" id="clientes-title">
+                        <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>  Gestión de Clientes
                     </h2>
                     <p class="mt-1 text-sm text-gray-500">
                         Administra los clientes y sus balances
@@ -166,10 +166,10 @@
         class="fixed inset-0 z-50 flex items-center justify-center bg-transparent p-2 sm:p-0 transition-opacity duration-200 rounded-xl hidden"
         role="dialog" aria-modal="true">
         <form id="cliente-form"
-            class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative space-y-6 border border-gray-100 animate-fade-in">
-            <!-- Botón cerrar -->
+            class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 sm:p-8 relative space-y-4 border border-gray-100 animate-fade-in">
+            <!-- Botón cerrar modal-->
             <button id="close-modal" type="button"
-                class="absolute top-4 right-4 text-gray-400 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-300 rounded-full transition-colors duration-150 text-2xl"
+                class="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors duration-150 text-2xl"
                 aria-label="Cerrar">
                 <i class="fa-solid fa-times"></i>
             </button>
@@ -184,8 +184,7 @@
                 <label for="cliente-nombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre o Razón
                     Social</label>
                 <div class="relative">
-                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i
-                            class="fa-solid fa-user"></i></span>
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><i class="fa-solid fa-user"></i></span>
                     <input id="cliente-nombre" name="nombre" type="text" required
                         class="pl-10 pr-3 py-2 block w-full rounded-md border border-gray-300 focus:ring-[#2c9494] focus:border-[#2c9494] placeholder-gray-400 transition-all duration-150"
                         placeholder="Ej: Juan Pérez o Empresa S.A." autocomplete="off" />
