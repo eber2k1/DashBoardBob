@@ -10,12 +10,12 @@
 <body class="bg-gray-100 font-sans text-gray-800">
     <!-- Menu lateral -->
     <aside id="sidebar"
-        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out border-r border-gray-200"
         aria-label="Menú principal">
         <!-- Header del menu -->
-        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
+        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-[#f3ab13] to-[#ffe3a3] text-white">
             <h2 class="text-xl font-bold">Menu</h2>
-            <button id="close-menu" class="focus:outline-none">
+            <button id="close-menu" class="focus:outline-none hover:bg-[#fff4d6] rounded-full p-1 transition-colors">
                 <i class="fa-solid fa-times"></i>
             </button>
         </header>
@@ -23,31 +23,31 @@
         <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] bg-[#f3ab13]/10 font-bold shadow-inner">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
@@ -84,6 +84,7 @@
                 <header class="mb-6">
                     <h2 id="dashboard-summary-title" class="text-2xl md:text-3xl font-bold mb-2 md:mb-4 text-[#2c9494] flex items-center gap-2">
                         <i class="fa-solid fa-gauge-high"></i> Bienvenido a Bob Dashboard
+                        
                     </h2>
                     <p class="text-gray-600 text-base md:text-lg">Aquí puedes ver el resumen de tus actividades recientes.</p>
                 </header>
@@ -118,22 +119,6 @@
                 </div>
             </section>
 
-            <!-- GRAFICA DE CLIENTES POR TIPO DE DOCUMENTO -->
-            <section aria-labelledby="clientes-tipo-doc-title" class="my-10">
-                <div class="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
-                    <header class="mb-4">
-                        <h2 id="clientes-tipo-doc-title" class="text-xl md:text-2xl font-bold text-[#2c9494] flex items-center gap-2">
-                            <i class="fa-solid fa-address-book"></i> Clientes por Tipo de Documento
-                        </h2>
-                        <p class="text-[#2c9494] text-lg font-semibold mb-1" id="totalClientes">8</p>
-                        <span class="text-sm text-gray-500">Total de clientes</span>
-                    </header>
-                    <div class="flex justify-center items-center w-full">
-                        <canvas id="clientesTipoDocChart" width="280" height="280" class="mx-auto"></canvas>
-                    </div>
-                </div>
-            </section>
-
             <!-- Tabla de últimos registros -->
             <section aria-labelledby="ultimos-registros-title" class="bg-white rounded-xl shadow-lg">
                 <header class="p-6 border-b border-gray-200 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
@@ -141,9 +126,6 @@
                         <h2 id="ultimos-registros-title" class="text-lg md:text-xl font-semibold text-[#2c9494]">Últimos 5 registros</h2>
                         <p class="text-gray-500 text-sm">Ingresos y egresos recientes de clientes</p>
                     </div>
-                    <a href="./registros.html" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-[#2c9494] hover:bg-[#238383] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2c9494] transition">
-                        Ver todos los registros
-                    </a>
                 </header>
                 <div class="overflow-x-auto rounded-b-xl">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -161,22 +143,22 @@
                         </tbody>
                     </table>
                 </div>
-                <footer class="my-6 flex gap-2 justify-end">
-                    <button onclick="exportarTransaccionesUnificadas()" class="bg-[#2c9494] text-white px-4 py-2 rounded shadow hover:bg-[#238383] transition">
-                        Exportar Excel
-                    </button>
-                    <label class="bg-white border rounded shadow px-4 py-2 cursor-pointer hover:bg-gray-100 transition">
-                        <span class="text-[#2c9494] font-medium">Importar Excel</span>
-                        <input type="file" accept=".xlsx" onchange="importarTransaccionesUnificadas(event)" class="hidden">
-                    </label>
-                </footer>
             </section>
         </section>
     </main>
+    <footer class="my-6 flex gap-2 justify-center">
+        <button onclick="exportarTransaccionesUnificadas()" class="bg-[#2c9494] text-white px-4 py-2 rounded shadow hover:bg-[#238383] transition">
+            Exportar Excel
+        </button>
+        <label class="bg-white border rounded shadow px-4 py-2 cursor-pointer hover:bg-gray-100 transition">
+            <span class="text-[#2c9494] font-medium">Importar Excel</span>
+            <input type="file" accept=".xlsx" onchange="importarTransaccionesUnificadas(event)" class="hidden">
+        </label>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
-    <script src="js/utils.js"></script>
     <script src="js/store.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/index.js"></script>
 </body>
 </html>

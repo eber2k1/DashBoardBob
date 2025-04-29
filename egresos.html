@@ -10,12 +10,12 @@
 <body class="bg-gray-50 font-sans text-gray-800">
     <!-- Menu lateral -->
     <aside id="sidebar"
-        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out"
+        class="w-64 lg:w-72 bg-white shadow-lg fixed h-full transform -translate-x-full z-50 transition-transform duration-300 ease-in-out border-r border-gray-200"
         aria-label="Menú principal">
         <!-- Header del menu -->
-        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-[#f3ab13] text-white">
+        <header class="p-4 border-b border-gray-200 flex justify-between items-center bg-gradient-to-r from-[#f3ab13] to-[#ffe3a3] text-white">
             <h2 class="text-xl font-bold">Menu</h2>
-            <button id="close-menu" class="focus:outline-none">
+            <button id="close-menu" class="focus:outline-none hover:bg-[#fff4d6] rounded-full p-1 transition-colors">
                 <i class="fa-solid fa-times"></i>
             </button>
         </header>
@@ -23,31 +23,31 @@
         <nav>
             <ul class="p-2">
                 <li class="mb-1">
-                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./index.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-house mr-3 w-5 text-center"></i>
                         <span>Resumen</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./clientes.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-users-between-lines mr-3 w-5 text-center"></i>
                         <span>Clientes</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./ingresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-coins mr-3 w-5 text-center"></i>
                         <span>Ingresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./egresos.html" class="flex items-center p-3 rounded-lg text-[#2c9494] bg-[#f3ab13]/10 font-bold shadow-inner">
                         <i class="fa-solid fa-credit-card mr-3 w-5 text-center"></i>
                         <span>Egresos</span>
                     </a>
                 </li>
                 <li class="mb-1">
-                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-gray-100">
+                    <a href="./balance.html" class="flex items-center p-3 rounded-lg text-[#2c9494] hover:bg-[#f3ab13]/10 transition">
                         <i class="fa-solid fa-chart-column mr-3 w-5 text-center"></i>
                         <span>Balance</span>
                     </a>
@@ -55,6 +55,7 @@
             </ul>
         </nav>
     </aside>
+
 
     <!-- Overlay para móvil (solo visible cuando el menú está abierto) -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" tabindex="-1" aria-hidden="true"></div>

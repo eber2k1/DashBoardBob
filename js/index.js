@@ -133,56 +133,6 @@ function setUpMonedaSelector() {
     }
 }
 
-// funcion para renderizar la grafica de clientes por tipo de documento
-let clientesTipoDocChart = null;
-function renderGraficaClientesTipoDoc() {
-    setTimeout(function() {
-        let clientes = [];
-        if (typeof clientesStore !== 'undefined' && clientesStore.getState) {
-            clientes = clientesStore.getState();
-        }
-        setCardValue(totalClientesEl, clientes.length);
-        const totalRuc = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'ruc').length;
-        const totalDni = clientes.filter(c => c.tipo_doc && c.tipo_doc.toLowerCase() === 'dni').length;
-        const ctx = clientesTipoDocChartEl.getContext('2d');
-        // Destruir la gráfica anterior si existe
-        if (clientesTipoDocChart) {
-            clientesTipoDocChart.destroy();
-        }
-        clientesTipoDocChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['RUC', 'DNI'],
-                datasets: [{
-                    data: [totalRuc, totalDni],
-                    backgroundColor: [
-                        '#f3ab13', // RUC
-                        '#2c9494'  // DNI
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: false,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom'
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const label = context.label || '';
-                                const value = context.parsed;
-                                return `${label}: ${value}`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }, 0);
-}
 
 // ==== MAIN ENTRY ====
 document.addEventListener('DOMContentLoaded', function() {
@@ -191,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setUpReactivity();
     setUpTipoCambioAutoUpdate();
     setUpMonedaSelector();
-    renderGraficaClientesTipoDoc();
 });
 
 

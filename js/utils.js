@@ -64,7 +64,7 @@ if (closeModalBtn) closeModalBtn.onclick = closeModal;
 // IMPORTANTE: Reemplaza 'TU_API_KEY' por tu propia API Key gratuita de https://www.exchangerate-api.com/
 async function actualizarTipoCambio() {
     try {
-        const apiKey = '681670669d28c12acfb9f55f'; // <-- PON AQUÍ TU API KEY
+        const apiKey = '5c2a1c28a9cad68ff1615da4'; // <-- PON AQUÍ TU API KEY
         const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`;
         const respuesta = await fetch(url);
         const data = await respuesta.json();
